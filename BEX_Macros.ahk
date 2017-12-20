@@ -232,6 +232,27 @@ if (book_more_notes)
 	InputBox, book_notes, Notes, Enter additional notes,,,150
 }
 
+;CHECK ACCESS CARD DropDown
+if (BOOK_AccessCard = 1){
+	BOOK_AC_INCL := " Access Card Included!"
+}
+else if (BOOK_AccessCard = 2){
+	BOOK_AC_INCL := " Access Card NOT Included."
+}
+else {
+	BOOK_AC_INCL := ""
+}
+
+;CHECK CD DROPDOWN
+if (BOOK_CD = 1){
+	BOOK_CD_INCL := " CD Included!"
+}
+else if (BOOK_CD = 2){
+	BOOK_CD_INCL := " CD NOT Included."
+}
+else {
+	BOOK_CD_INCL := ""
+}
 
 ;CHECK IF MARKINGS BOX IS CHECKED OR NOT
 if (!markings)
@@ -243,12 +264,31 @@ else
 	Markings := " May include limited notes and/or highlighting."
 }
 
+;CHECK IF EX-RENTAL BOX IS CHECKED OR NoTab
+if (!BOOK_Library)
+{
+
+}
+else
+{
+
+}
+
+;CHECK IF WATER DAMAGE BOX IS CHECKED OR NoTab
+if (!BOOK_Water)
+{
+
+}
+{
+	
+}
+
 ;SET THE MAIN CONDITION PHRASE
 book_cond := BOOKArray[book_condition]
 book_ed := EdArray[book_edition]
 
 ;OUTPUT MACRO TEXT
-SendRaw, %book_cond%%Promo%%markings%%book_ed%%book_notes%
+SendRaw, %book_cond%%markings%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
