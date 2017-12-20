@@ -25,19 +25,23 @@ DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaon
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
-Gui, BOOK: Add, Text, x10 w225 Center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x10 w225 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
-Gui, BOOK: Add, Text, x10 w225 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x10 w225 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
-Gui, BOOK: Add, Checkbox, vMarkings x10, Markings?
-Gui, BOOK: Add, Checkbox, vBook_Library x10, Ex-Rental?
-Gui, BOOK: Add, Checkbox, vBook_More_Notes x10, Additional Notes?
-Gui, BOOK: Add, Button, gBook_OK y140 x130 w50 Default, OK
-Gui, BOOK: Add, Button, y140 x190 w50 gCancel, Cancel
+Gui, BOOK: Add, Text, x15 y10 center, -- Condition --
+Gui, BOOK: Add, ddl, vBOOK_Condition x10 y30 w80 AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, Text, x155 y10 w100 Center, -- Edition --
+Gui, BOOK: Add, ddl, vBOOK_Edition x150 y30 w110, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
+Gui, BOOK: Add, Text, x10 y70 w120, Access Card?
+Gui, BOOK: Add, DDL, vBOOK_AccessCard x80 y65 w45 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Text, x145 y70 w120, CD Included?
+Gui, BOOK: Add, DDL, vBOOK_CD x215 y65 w45 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Checkbox, vBOOK_Markings x10 y100, Markings?
+Gui, BOOK: Add, Checkbox, vBOOK_Library x90 y100, Ex-Rental?
+Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x10 y130, Additional Notes?
+Gui, BOOK: Add, Button, gBook_OK y150 x150 w50 Default, OK
+Gui, BOOK: Add, Button, y150 x210 w50 gCancel, Cancel
 ; ------------------- END BOOK GUI -------------------
 
 BOOK_Window() {
-	Gui, BOOK: Show, w250 h170, Book Macros
+	Gui, BOOK: Show, w270 h180, Book Macros
 }
 
 BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
