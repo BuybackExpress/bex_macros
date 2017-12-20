@@ -51,7 +51,7 @@ CD_Window() {
 CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Very Good shape with only light, reasonable wear. Perfect-play Guarantee!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD.","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD."]
 ;------------------- END CD GUI ---------------------
 
-;------------------- Create SOFT GUI ---------------------
+;------------------- Create GAME GUI ---------------------
 Gui, VG: Add, Text, x10 y10 w225 Center, -- Condition --
 Gui, VG: Add, ddl, vVG_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, VG: Add, Checkbox, vVG_More_Notes x10 y70, Additional Notes?
@@ -65,7 +65,7 @@ VG_Window() {
 }
 
 VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","Acceptable Condition with noticeable wear"]
-;------------------- END SOFT GUI ---------------------
+;------------------- END GAME GUI ---------------------
 
 ;END MAKING GUIS
 
