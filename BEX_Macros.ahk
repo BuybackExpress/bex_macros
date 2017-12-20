@@ -8,7 +8,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 Gui, DVD: Add, Text, x10 y10 w225 Center, -- Format --
 Gui, DVD: Add, ddl, vFormat x10 y30 w225 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x10 y65 w225 Center, -- Condition --
-Gui, DVD: Add, ddl, vDVD_Condition x10 y80 w225 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, DVD: Add, ddl, vDVD_Condition x10 y80 w225 Center AltSubmit, New|Like New|Very Good|Acceptable||
 Gui, DVD: Add, Checkbox, vDVD_More_Notes x10 y120, Additional Notes?
 Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x10 y140, Replaced Case?
 Gui, DVD: Add, Checkbox, vLibrary x130 y120, Ex-Rental?
@@ -120,9 +120,9 @@ else
 }
 
 ;CHECK IF LIBRARY BOX IS CHECKED OR NOT
-if (library and dvd_condition < 3)
+if (library and dvd_condition < 4)
 {
-	MsgBox,,Error,You cannot choose better than GOOD with Ex-Rental.
+	MsgBox,,Error,You cannot choose better than ACCEPTABLE with Ex-Rental.
 	DVD_Window()
 	return
 }
@@ -135,17 +135,17 @@ else if (library)
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
 if (dvd_replacecase)
 {
-	if(dvd_condition < 3)
+	if(dvd_condition < 4)
 	{
-		MsgBox,,Nope, If you replaced the case, you can't choose higher than GOOD.
+		MsgBox,,Nope, If you replaced the case, you can't choose higher than ACCEPTABLE.
 		DVD_Window()
 		return
 	}
-	CD_ReplaceCase := " Replacement case."
+	dvd_replacecase := " Replacement case."
 }
 else 
 {
-	CD_ReplaceCase := ""
+	dvd_replacecase := ""
 }
 
 ;CHECK IF FORMAT IS COMBO AND MODIFY TEXT
@@ -159,7 +159,7 @@ cond := DVDArray[dvd_condition]
 
 ;OUTPUT THE MACRO TEXT
 
-SendRaw, %Format% and Case %cond%%ReplaceCase%%DigitalCode%%dvd_notes%
+SendRaw, %Format% and Case %cond%%dvd_replacecase%%DigitalCode%%dvd_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
