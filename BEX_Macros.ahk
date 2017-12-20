@@ -28,7 +28,7 @@ DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaon
 Gui, BOOK: Add, Text, x10 w225 Center, -- Condition --
 Gui, BOOK: Add, ddl, vBOOK_Condition x10 w225 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
 Gui, BOOK: Add, Text, x10 w225 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x10 w225 Center, Standard Edition||Instructor's Edition|Advanced Reader
+Gui, BOOK: Add, ddl, vBOOK_Edition x10 w225 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
 Gui, BOOK: Add, Checkbox, vMarkings x10, Markings?
 Gui, BOOK: Add, Checkbox, vBook_Library x10, Ex-Rental?
 Gui, BOOK: Add, Checkbox, vBook_More_Notes x10, Additional Notes?
@@ -40,7 +40,7 @@ BOOK_Window() {
 	Gui, BOOK: Show, w250 h170, Book Macros
 }
 
-BOOKArray := ["NEW","Like New","Very Good","Good","Acceptable"]
+BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
@@ -227,18 +227,18 @@ if (book_more_notes)
 ;CHECK IF MARKINGS BOX IS CHECKED OR NOT
 IfEqual, Markings, true
 {
-	Markings := "Clean, mark-free interior! "
+	Markings := " Clean, mark-free interior!"
 }
 else 
 {
-	Markings := "Interior has some markings. "
+	Markings := " May include limited notes and/or highlighting."
 }
 
 ;SET THE MAIN CONDITION PHRASE
 book_cond := BOOKArray[book_condition]
 
 ;OUTPUT MACRO TEXT
-SendRaw, %book_cond%%Promo%%book_notes%
+SendRaw, %book_cond%%Promo%%markings%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
