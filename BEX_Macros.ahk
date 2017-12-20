@@ -41,7 +41,7 @@ BOOK_Window() {
 }
 
 BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
-EdArray := ["",""," Teacher's Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
+EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
