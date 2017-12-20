@@ -6,11 +6,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;------------------- Create DVD GUI -------------------
 Gui, DVD: Add, Text, x10 y10 w225 Center, -- Format --
-Gui, DVD: Add, ddl, vFormat x10 y30 w225 Center, DVD|Bluray|HD-DVD|PSP Video
+Gui, DVD: Add, ddl, vFormat x10 y30 w225 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x10 y65 w225 Center, -- Condition --
 Gui, DVD: Add, ddl, vDVD_Condition x10 y80 w225 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, DVD: Add, Checkbox, vDVD_More_Notes x10 y120, Additional Notes?
-Gui, DVD: Add, Checkbox, vReplaceCase x10 y140, Replaced Case?
+Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x10 y140, Replaced Case?
 Gui, DVD: Add, Checkbox, vLibrary x130 y120, Ex-Rental?
 Gui, DVD: Add, Checkbox, vDigitalCode x130 y140, Digital Code?
 Gui, DVD: Add, Button, gDVD_OK y170 x130 w50 Default, OK
@@ -115,13 +115,13 @@ if (dvd_more_notes)
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
-if (replacecase)
+if (dvd_replacecase)
 {
-	ReplaceCase := " Replacement case."
+	dvd_replacecase := " Replacement case."
 }
 else 
 {
-	ReplaceCase := ""
+	dvd_replacecase := ""
 }
 
 ;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
@@ -129,11 +129,11 @@ if (DigitalCode)
 {
 	if(dvd_condition = 1)
 	{
-		MsgBox,,Alert, Please uncheck the Digital Code checkbox when choosing new condition.
+		MsgBox,,Nope, You selected NEW condition. Please uncheck the DIGITAL CODE option.
 		DVD_Window()
 		return
 	}
-	DigitalCode := " As this item is used, it may not include a valid digital code."
+	DigitalCode := " May not include a valid digital code."
 }
 else 
 {
@@ -150,6 +150,29 @@ if (library and dvd_condition < 3)
 else if (library)
 {
 	dvd_condition := dvd_condition + 2
+
+}
+
+;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
+if (dvd_replacecase)
+{
+	if(dvd_condition < 3)
+	{
+		MsgBox,,Nope, If you replaced the case, you can't choose higher than GOOD.
+		DVD_Window()
+		return
+	}
+	CD_ReplaceCase := " Replacement case."
+}
+else 
+{
+	CD_ReplaceCase := ""
+}
+
+;CHECK IF FORMAT IS COMBO AND MODIFY TEXT
+if (format := "Combo")
+{
+	format := "All Discs" 
 }
 
 ;SET THE MAIN CONDITION PHRASE
