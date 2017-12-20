@@ -34,17 +34,19 @@ Gui, BOOK: Add, DDL, vBOOK_AccessCard x80 y115 w45 AltSubmit, Yes|No|N/A||
 Gui, BOOK: Add, Text, x145 y120 w120, CD Included?
 Gui, BOOK: Add, DDL, vBOOK_CD x215 y115 w45 AltSubmit, Yes|No|N/A||
 Gui, BOOK: Add, Checkbox, vBOOK_Markings x10 y150, Markings?
-Gui, BOOK: Add, Checkbox, vBOOK_Library x90 y150, Ex-Rental?
+Gui, BOOK: Add, Checkbox, vBOOK_Library x140 y150, Ex-Rental?
 Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x10 y180, Additional Notes?
-Gui, BOOK: Add, Button, gBook_OK y200 x150 w50 Default, OK
-Gui, BOOK: Add, Button, y200 x210 w50 gCancel, Cancel
-; ------------------- END BOOK GUI -------------------
+Gui, BOOK: Add, Checkbox, vBOOK_Water x140 y180, Water Damage?
+Gui, BOOK: Add, Button, gBook_OK x150 y220 w50 Default, OK
+Gui, BOOK: Add, Button, x210 y220 w50 gCancel, Cancel
 
-BOOK_Window() {
-	Gui, BOOK: Show, w270 h230, Book Macros
+BOOK_Window() 
+{
+	Gui, BOOK: Show, w270 h250, Book Macros
 }
 
 BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
+; ------------------- END BOOK GUI -------------------
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
@@ -105,6 +107,13 @@ return
 VG_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
+;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
+Cancel:
+WinClose
+Reload
+return
+;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:
@@ -201,13 +210,6 @@ Reload
 return
 
 ;------------------- END DVD SUBMIT BUTTON FUNCTIONS -------------------
-
-;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
-Cancel:
-WinClose
-Reload
-return
-;------------------- END CANCEL BUTTON CLOSES WINDOWS
 
 ;------------------- BEGIN BOOK SUBMIT BUTTON FUNCTIONS -------------------
 Book_OK:
