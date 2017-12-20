@@ -5,6 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
 ;------------------- Create DVD GUI -------------------
+;Gui, DVD: Font, s18
 Gui, DVD: Add, Text, x10 y10 w225 Center, -- Format --
 Gui, DVD: Add, ddl, vFormat x10 y30 w225 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x10 y65 w225 Center, -- Condition --
@@ -25,23 +26,30 @@ DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaon
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
-Gui, BOOK: Add, Text, x10 w225 Center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x10 w225 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
-Gui, BOOK: Add, Text, x10 w225 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x10 w225 Center AltSubmit, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
-Gui, BOOK: Add, Checkbox, vMarkings x10, Markings?
-Gui, BOOK: Add, Checkbox, vBook_Library x10, Ex-Rental?
-Gui, BOOK: Add, Checkbox, vBook_More_Notes x10, Additional Notes?
-Gui, BOOK: Add, Button, gBook_OK y140 x130 w50 Default, OK
-Gui, BOOK: Add, Button, y140 x190 w50 gCancel, Cancel
+Gui, BOOK: Add, Text, x10 y10 w250 center, -- Condition --
+Gui, BOOK: Add, ddl, vBOOK_Condition x10 y30 w250 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, Text, x10 y60 w250 Center, -- Edition --
+Gui, BOOK: Add, ddl, vBOOK_Edition x10 y80 w250 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
+Gui, BOOK: Add, Text, x10 y120 w120, Access Card?
+Gui, BOOK: Add, DDL, vBOOK_AccessCard x80 y115 w45 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Text, x145 y120 w120, CD Included?
+Gui, BOOK: Add, DDL, vBOOK_CD x215 y115 w45 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Checkbox, vMarkings x10 y150, Markings?
+Gui, BOOK: Add, Checkbox, vBOOK_Library x140 y150, Ex-Rental?
+Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x10 y180, Additional Notes?
+Gui, BOOK: Add, Checkbox, vBOOK_Water x140 y180, Water Damage?
+Gui, BOOK: Add, Button, gBook_OK x150 y220 w50 Default, OK
+Gui, BOOK: Add, Button, x210 y220 w50 gCancel, Cancel
 ; ------------------- END BOOK GUI -------------------
 
 BOOK_Window() {
-	Gui, BOOK: Show, w250 h170, Book Macros
+	Gui, BOOK: Show, w270 h250, Book Macros
 }
 
 BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
 EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
+
+;------------------- END BOOK GUI -------------------
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
@@ -102,6 +110,13 @@ return
 VG_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
+;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
+Cancel:
+WinClose
+Reload
+return
+;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:
@@ -198,13 +213,6 @@ Reload
 return
 
 ;------------------- END DVD SUBMIT BUTTON FUNCTIONS -------------------
-
-;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
-Cancel:
-WinClose
-Reload
-return
-;------------------- END CANCEL BUTTON CLOSES WINDOWS
 
 ;------------------- BEGIN BOOK SUBMIT BUTTON FUNCTIONS -------------------
 Book_OK:
