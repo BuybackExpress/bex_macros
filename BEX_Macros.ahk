@@ -15,6 +15,13 @@ Gui, DVD: Add, Checkbox, vLibrary x130 y120, Ex-Rental?
 Gui, DVD: Add, Checkbox, vDigitalCode x130 y140, Digital Code?
 Gui, DVD: Add, Button, gDVD_OK y170 x130 w50 Default, OK
 Gui, DVD: Add, Button, y170 x190 w50 gCancel, Cancel
+
+DVD_Window() 
+{
+	Gui, DVD: Show, w250 h200, DVD Macros
+}
+
+DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Good Condition with reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
@@ -42,15 +49,23 @@ CD_Window() {
 }
 
 CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Very Good shape with only light, reasonable wear. Perfect-play Guarantee!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD.","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD."]
-;------------------- Create CD GUI ---------------------
+;------------------- END CD GUI ---------------------
 
-DVD_Window() {
-	Gui, DVD: Show, w250 h200, DVD Macros
+;------------------- Create SOFT GUI ---------------------
+Gui, VG: Add, Text, x10 y10 w225 Center, -- Condition --
+Gui, VG: Add, ddl, vVG_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, VG: Add, Checkbox, vVG_More_Notes x10 y70, Additional Notes?
+Gui, VG: Add, Checkbox, vVG_ReplaceCase x10 y90, Replaced Case?
+Gui, VG: Add, Checkbox, vVG_Paper x130 y70, Includes Paperwork?
+Gui, VG: Add, Button, gVG_OK y120 x130 w50 Default, OK
+Gui, VG: Add, Button, y120 x190 w50 gCancel, Cancel
+
+VG_Window() {
+	Gui, VG: Show, w250 h150, Video Game Macros
 }
 
-DVDArray := ["are in NEW Condition!","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Good Condition with reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
-
-return
+VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","Acceptable Condition with noticeable wear"]
+;------------------- END SOFT GUI ---------------------
 
 ;END MAKING GUIS
 
@@ -71,6 +86,12 @@ return
 CD_Window()
 return
 ;------------------- END CD HOTKEY -------------------
+
+;------------------- BEGIN VG/SOFT HOTKEY -------------------
+::#vg::
+VG_Window()
+return
+;------------------- END VG/SOFT HOTKEY -------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:
@@ -241,7 +262,7 @@ else
 ;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
 if (CD_Insert)
 {
-	if(CD_Condition = 1)
+	if(CD_Condition < 3)
 	{
 		MsgBox,,Alert, Please uncheck the Missing Insert checkbox when choosing new condition.
 		CD_Window()
@@ -288,3 +309,70 @@ Reload
 return
 
 ;------------------- END CD SUBMIT BUTTON FUNCTIONS -------------------
+
+;------------------- BEGIN VG SUBMIT BUTTON FUNCTIONS -------------------
+VG_OK:
+;submit the variables
+Gui, Submit
+
+;FORM VALIDATION
+If (!VG_condition)
+{
+	MsgBox,,Alert, Please select a condition.
+	VG_Window()
+	return
+}
+
+;ASK FOR USER INPUT IF ADDITIONAL NOTES ARE CHECKED
+
+if (VG_more_notes)
+{
+	InputBox, VG_notes, Notes, Enter additional notes,,,150
+	VG_notes := " " + VG_notes
+}
+
+;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
+if (VG_replacecase)
+{
+	if(VG_Condition < 3)
+	{
+		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
+		CD_Window()
+		return
+	}
+	VG_ReplaceCase := " Replacement case."
+}
+else 
+{
+	VG_ReplaceCase := ""
+}
+
+;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
+if (VG_Paper)
+{
+	if(VG_condition = 1)
+	{
+		MsgBox,,Alert, Please uncheck the Includes Paperwork checkbox when choosing new condition.
+		VG_Window()
+		return
+	}
+	Paper := " Any original paperwork is included."
+}
+else 
+{
+	Paper := ""
+}
+
+;SET THE MAIN CONDITION PHRASE
+VG_cond := VGArray[VG_condition]
+
+;OUTPUT THE MACRO TEXT
+
+SendRaw, Disc and Case %VG_cond% Perfect-Play Guarantee!%VG_ReplaceCase%%Paper%%VG_notes%
+
+;RELOAD SCRIPT TO RESET VARIABLES
+Reload
+
+return
+
+;------------------- END VG SUBMIT BUTTON FUNCTIONS -------------------
