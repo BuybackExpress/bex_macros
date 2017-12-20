@@ -70,8 +70,8 @@ CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Ver
 
 ;------------------- Create GAME GUI ---------------------
 Gui, VG: Font, s18
-Gui, VG: Add, Text, x30 y10 w300 Center, -- Condition --
-Gui, VG: Add, ddl, vVG_Condition x30 y50 w300 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, VG: Add, Text, x30 y10 w260 Center, -- Condition --
+Gui, VG: Add, ddl, vVG_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, VG: Add, Checkbox, vVG_More_Notes x340 y110, Additional Notes?
 Gui, VG: Add, Checkbox, vVG_ReplaceCase x30 y110, Replaced Case?
 Gui, VG: Add, Checkbox, vVG_Paper x30 y150, Includes Paperwork?
@@ -84,6 +84,26 @@ VG_Window() {
 
 VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","Acceptable Condition with noticeable wear"]
 ;------------------- END GAME GUI ---------------------
+
+;------------------- Create SOFT GUI ---------------------
+Gui, SFT: Font, s18
+Gui, SFT: Add, Text, x30 y10 w260 Center, -- Condition --
+Gui, SFT: Add, ddl, vSFT_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, SFT: Add, Text, x30 y100 w260 Center, -- Container --
+Gui, SFT: Add, DDL, vSFT_Container x30 y140 w260 Center, Box|Case
+Gui, SFT: Add, Checkbox, vSFT_More_Notes x340 y50, Additional Notes?
+Gui, SFT: Add, Checkbox, vSFT_ReplaceCase x340 y95, Replaced Case?
+Gui, SFT: Add, Checkbox, vSFT_Paper x340 y140, Includes Paperwork?
+Gui, SFT: Add, Button, gSFT_OK x320 y230 w100 Default, OK
+Gui, SFT: Add, Button, x460 y230 w100 gCancel, Cancel
+
+SFT_Window() {
+	Gui, SFT: Show, w600 h300, Software Macros
+}
+
+SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with some reasonable wear, but come with","have noticeable wear, but come with"]
+;------------------- END SOFT GUI ---------------------
+
 
 ;END MAKING GUIS
 
@@ -110,6 +130,13 @@ return
 VG_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
+;------------------- BEGIN VG/SOFT HOTKEY -------------------
+::#soft::
+SFT_Window()
+return
+;------------------- END VG/SOFT HOTKEY -------------------
+
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
@@ -450,3 +477,70 @@ Reload
 return
 
 ;------------------- END VG SUBMIT BUTTON FUNCTIONS -------------------
+
+;------------------- BEGIN SOFT SUBMIT BUTTON FUNCTIONS -------------------
+SFT_OK:
+;submit the variables
+Gui, Submit
+
+;FORM VALIDATION
+If (!SFT_condition or !SFT_Container)
+{
+	MsgBox,,Alert, Please select both a container and a condition.
+	SFT_Window()
+	return
+}
+
+;ASK FOR USER INPUT IF ADDITIONAL NOTES ARE CHECKED
+if (SFT_more_notes)
+{
+	InputBox, SFT_notes, Notes, Enter additional notes,,,150
+	SFT_notes := " " + SFT_notes
+}
+
+;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
+if (SFT_replacecase)
+{
+	if(SFT_Condition < 3)
+	{
+		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
+		SFT_Window()
+		return
+	}
+	SFT_ReplaceCase := " Replacement case."
+}
+else 
+{
+	SFT_ReplaceCase := ""
+}
+
+;CHECK IF PAPERWORK INCLUDED BOX IS CHECKED OR NOT
+if (SFT_Paper)
+{
+	if(SFT_condition = 1)
+	{
+		MsgBox,,Alert, Please uncheck the Includes Paperwork checkbox when choosing new condition.
+		SFT_Window()
+		return
+	}
+	SFT_Paper := " Any original paperwork is included."
+}
+else 
+{
+	SFT_Paper := ""
+}
+
+;SET THE MAIN CONDITION PHRASE
+SFT_cond := SFTArray[SFT_condition]
+
+;OUTPUT THE MACRO TEXT
+
+SendRaw, Disc and %SFT_Container% %SFT_cond% Perfect-Play Guarantee!%SFT_ReplaceCase%%SFT_Paper%%SFT_notes%
+
+;RELOAD SCRIPT TO RESET VARIABLES
+Reload
+
+return
+
+;------------------- END SOFT SUBMIT BUTTON FUNCTIONS -------------------
+
