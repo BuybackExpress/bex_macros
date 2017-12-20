@@ -76,9 +76,9 @@ return
 ;------------------- END DVD HOTKEY -------------------
 
 ;------------------- BEGIN BOOK HOTKEY -------------------
-::#books::
-Gui, BOOK: Show, w250 h170, Book Macros
-return
+;::#books::
+;Gui, BOOK: Show, w250 h170, Book Macros
+;return
 ;------------------- END BOOK HOTKEY -------------------
 
 ;------------------- BEGIN CD HOTKEY -------------------
