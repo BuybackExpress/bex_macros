@@ -127,9 +127,9 @@ else
 ;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
 if (DigitalCode)
 {
-	if(dvd_condition = 1)
+	if(dvd_condition < 4)
 	{
-		MsgBox,,Nope, You selected NEW condition. Please uncheck the DIGITAL CODE option.
+		MsgBox,,Nope, Items missing a DIGITAL CODE cannot be listed higher than ACCEPTABLE.
 		DVD_Window()
 		return
 	}
