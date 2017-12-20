@@ -26,12 +26,21 @@ DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaon
 
 ;------------------- Create BOOK GUI -------------------
 Gui, BOOK: Add, Text, x10 w225 Center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x10 w225 Center, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, ddl, vBOOK_Condition x10 w225 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, Text, x10 w225 Center, -- Edition --
+Gui, BOOK: Add, ddl, vBOOK_Edition x10 w225 Center, Standard Edition||Instructor's Edition|Advanced Reader
 Gui, BOOK: Add, Checkbox, vMarkings x10, Markings?
+Gui, BOOK: Add, Checkbox, vBook_Library x10, Ex-Rental?
 Gui, BOOK: Add, Checkbox, vBook_More_Notes x10, Additional Notes?
 Gui, BOOK: Add, Button, gBook_OK y140 x130 w50 Default, OK
 Gui, BOOK: Add, Button, y140 x190 w50 gCancel, Cancel
 ; ------------------- END BOOK GUI -------------------
+
+BOOK_Window() {
+	Gui, BOOK: Show, w250 h170, Book Macros
+}
+
+BOOKArray := ["NEW","Like New","Very Good","Good","Acceptable"]
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
@@ -76,9 +85,9 @@ return
 ;------------------- END DVD HOTKEY -------------------
 
 ;------------------- BEGIN BOOK HOTKEY -------------------
-;::#book::
-;Gui, BOOK: Show, w250 h170, Book Macros
-;return
+::#book::
+BOOK_Window()
+return
 ;------------------- END BOOK HOTKEY -------------------
 
 ;------------------- BEGIN CD HOTKEY -------------------
@@ -201,10 +210,10 @@ Book_OK:
 Gui, Submit
 
 ;FORM VALIDATION
-If (!condition)
+If (!book_condition)
 {
 	MsgBox,,Alert, Please select a condition.
-	Gui, BOOK: Show, w250 h170, Book Macros
+	BOOK_Window()
 	return
 }
 
@@ -225,19 +234,11 @@ else
 	Markings := "Interior has some markings. "
 }
 
+;SET THE MAIN CONDITION PHRASE
+book_cond := BOOKArray[book_condition]
+
 ;OUTPUT MACRO TEXT
-IfEqual, condition, Good
-{
-	SendRaw, Good Condition. Reasonable wear. Still very usable. %Markings%%book_notes%
-} 
-else IfEqual, condition, Very Good 
-{
-	SendRaw, Very Good Condition. Reasonable wear. Still very usable. %Markings% %book_notes%
-}
-else IfEqual, condition, Acceptable
-{
-	SendRaw, Acceptable Condition. Reasonable wear. Still very usable. %Markings% %book_notes%
-}
+SendRaw, %book_cond%%Promo%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
