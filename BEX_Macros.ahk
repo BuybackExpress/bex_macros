@@ -5,81 +5,81 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
 ;------------------- Create DVD GUI -------------------
-;Gui, DVD: Font, s18
-Gui, DVD: Add, Text, x10 y10 w225 Center, -- Format --
-Gui, DVD: Add, ddl, vFormat x10 y30 w225 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
-Gui, DVD: Add, Text, x10 y65 w225 Center, -- Condition --
-Gui, DVD: Add, ddl, vDVD_Condition x10 y80 w225 Center AltSubmit, New|Like New|Very Good|Acceptable||
-Gui, DVD: Add, Checkbox, vDVD_More_Notes x10 y120, Additional Notes?
-Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x10 y140, Replaced Case?
-Gui, DVD: Add, Checkbox, vLibrary x130 y120, Ex-Rental?
-Gui, DVD: Add, Checkbox, vDigitalCode x130 y140, Digital Code?
-Gui, DVD: Add, Button, gDVD_OK y170 x130 w50 Default, OK
-Gui, DVD: Add, Button, y170 x190 w50 gCancel, Cancel
+Gui, DVD: Font, s18
+Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
+Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
+Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
+Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable||
+Gui, DVD: Add, Checkbox, vDVD_More_Notes x340 y30, Additional Notes?
+Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x340 y75, Replaced Case?
+Gui, DVD: Add, Checkbox, vLibrary x340 y120, Ex-Rental?
+Gui, DVD: Add, Checkbox, vDigitalCode x340 y165, Digital Code?
+Gui, DVD: Add, Button, gDVD_OK x320 y230 w100 Default, OK
+Gui, DVD: Add, Button, x460 y230 w100 gCancel, Cancel
 
-DVD_Window() 
-{
-	Gui, DVD: Show, w250 h200, DVD Macros
+DVD_Window() {
+	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
 DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Good Condition with reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
-Gui, BOOK: Add, Text, x10 y10 w250 center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x10 y30 w250 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
-Gui, BOOK: Add, Text, x10 y60 w250 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x10 y80 w250 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
-Gui, BOOK: Add, Text, x10 y120 w120, Access Card?
-Gui, BOOK: Add, DDL, vBOOK_AccessCard x80 y115 w45 AltSubmit, Yes|No|N/A||
-Gui, BOOK: Add, Text, x145 y120 w120, CD Included?
-Gui, BOOK: Add, DDL, vBOOK_CD x215 y115 w45 AltSubmit, Yes|No|N/A||
-Gui, BOOK: Add, Checkbox, vMarkings x10 y150, Markings?
-Gui, BOOK: Add, Checkbox, vBOOK_Library x140 y150, Ex-Rental?
-Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x10 y180, Additional Notes?
-Gui, BOOK: Add, Checkbox, vBOOK_Water x140 y180, Water Damage?
-Gui, BOOK: Add, Button, gBook_OK x150 y220 w50 Default, OK
-Gui, BOOK: Add, Button, x210 y220 w50 gCancel, Cancel
-; ------------------- END BOOK GUI -------------------
+Gui, BOOK: Font, s18
+Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
+Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
+Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w260 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
+Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
+Gui, BOOK: Add, DDL, vBOOK_AccessCard x210 y195 w80 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Text, x30 y250 w200, CD Included?
+Gui, BOOK: Add, DDL, vBOOK_CD x210 y245 w80 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Checkbox, vMarkings x340 y30, Markings?
+Gui, BOOK: Add, Checkbox, vBOOK_Library x340 y75, Ex-Rental?
+Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x340 y120, Additional Notes?
+Gui, BOOK: Add, Checkbox, vBOOK_Water x340 y165, Water Damage?
+Gui, BOOK: Add, Button, gBook_OK x320 y230 w100 Default, OK
+Gui, BOOK: Add, Button, x460 y230 w100 gCancel, Cancel
 
 BOOK_Window() {
-	Gui, BOOK: Show, w270 h250, Book Macros
+	Gui, BOOK: Show, w600 h300, Book Macros
 }
 
 BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
 EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
-
 ;------------------- END BOOK GUI -------------------
 
 ;------------------- Create CD GUI ---------------------
-Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
-Gui, CD: Add, ddl, vCD_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, CD: Add, Checkbox, vCD_More_Notes x10 y70, Additional Notes?
-Gui, CD: Add, Checkbox, vCD_ReplaceCase x10 y90, Replaced Case?
-Gui, CD: Add, Checkbox, vCD_Library x130 y70, Ex-Rental?
-Gui, CD: Add, Checkbox, vCD_Insert x130 y90, Missing Insert?
-Gui, CD: Add, Checkbox, vPromo x10 y110, Promotional Copy?
-Gui, CD: Add, Button, gCD_OK y120 x130 w50 Default, OK
-Gui, CD: Add, Button, y120 x190 w50 gCancel, Cancel
+Gui, CD: Font, s18
+Gui, CD: Add, Text, x30 y10 w260 Center, -- Condition --
+Gui, CD: Add, ddl, vCD_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, CD: Add, Checkbox, vCD_More_Notes x340 y110, Additional Notes?
+Gui, CD: Add, Checkbox, vCD_ReplaceCase x340 y150, Replaced Case?
+Gui, CD: Add, Checkbox, vCD_Library x30 y110, Ex-Rental?
+Gui, CD: Add, Checkbox, vCD_Insert x30 y150, Missing Insert?
+Gui, CD: Add, Checkbox, vPromo x30 y190, Promotional Copy?
+Gui, CD: Add, Button, gCD_OK x320 y230 w100 Default, OK
+Gui, CD: Add, Button, x460 y230 w100 gCancel, Cancel
 
 CD_Window() {
-	Gui, CD: Show, w250 h150, CD Macros
+	Gui, CD: Show, w600 h300, CD Macros
 }
 
 CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Very Good shape with only light, reasonable wear. Perfect-play Guarantee!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD.","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD."]
 ;------------------- END CD GUI ---------------------
 
 ;------------------- Create GAME GUI ---------------------
-Gui, VG: Add, Text, x10 y10 w225 Center, -- Condition --
-Gui, VG: Add, ddl, vVG_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, VG: Add, Checkbox, vVG_More_Notes x10 y70, Additional Notes?
-Gui, VG: Add, Checkbox, vVG_ReplaceCase x10 y90, Replaced Case?
-Gui, VG: Add, Checkbox, vVG_Paper x130 y70, Includes Paperwork?
-Gui, VG: Add, Button, gVG_OK y120 x130 w50 Default, OK
-Gui, VG: Add, Button, y120 x190 w50 gCancel, Cancel
+Gui, VG: Font, s18
+Gui, VG: Add, Text, x30 y10 w300 Center, -- Condition --
+Gui, VG: Add, ddl, vVG_Condition x30 y50 w300 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, VG: Add, Checkbox, vVG_More_Notes x340 y110, Additional Notes?
+Gui, VG: Add, Checkbox, vVG_ReplaceCase x30 y110, Replaced Case?
+Gui, VG: Add, Checkbox, vVG_Paper x30 y150, Includes Paperwork?
+Gui, VG: Add, Button, gVG_OK x320 y230 w100 Default, OK
+Gui, VG: Add, Button, x460 y230 w100 gCancel, Cancel
 
 VG_Window() {
-	Gui, VG: Show, w250 h150, Video Game Macros
+	Gui, VG: Show, w600 h300, Video Game Macros
 }
 
 VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","Acceptable Condition with noticeable wear"]
@@ -280,7 +280,7 @@ if (!BOOK_Water)
 
 }
 {
-	
+
 }
 
 ;SET THE MAIN CONDITION PHRASE
