@@ -21,7 +21,7 @@ DVD_Window() {
 	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Good Condition with reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
+DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
@@ -45,8 +45,14 @@ BOOK_Window() {
 	Gui, BOOK: Show, w600 h300, Book Macros
 }
 
-BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable."]
+BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
 EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
+
+GetWaterDamage() {
+	return " Something something water damage...."
+	;return %Water_Degree%" damp-staining along "%Water_Location%" to "%Water_Extent%" of book,  but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
+}
+
 ;------------------- END BOOK GUI -------------------
 
 ;------------------- Create CD GUI ---------------------
@@ -137,13 +143,19 @@ SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
 
-
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
 WinClose
 Reload
 return
 ;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
+
+;------------------- ESCAPE CLOSES WINDOWS -------------------
+Escape::
+WinClose
+Reload
+return
+;------------------- END ESCAPE CLOSES WINDOWS -------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:
@@ -201,8 +213,7 @@ if (library and dvd_condition < 4)
 }
 else if (library)
 {
-	dvd_condition := dvd_condition + 2
-
+	dvd_condition := dvd_condition + 1
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
@@ -257,6 +268,7 @@ If (!book_condition)
 if (book_more_notes)
 {
 	InputBox, book_notes, Notes, Enter additional notes,,,150
+	book_notes := " " + book_notes
 }
 
 ;CHECK ACCESS CARD DropDown
@@ -292,22 +304,31 @@ else
 }
 
 ;CHECK IF EX-RENTAL BOX IS CHECKED OR NoTab
-if (!BOOK_Library)
+if (BOOK_Library and book_condition < 4)
 {
-
+	MsgBox,,Error,You cannot choose better than GOOD with Ex-Rental.
+	BOOK_Window()
+	return
 }
-else
+else if (BOOK_Library)
 {
-
+	book_condition := book_condition + 2
 }
 
 ;CHECK IF WATER DAMAGE BOX IS CHECKED OR NoTab
-if (!BOOK_Water)
+if (BOOK_Water and book_condition < 4)
 {
-
+	MsgBox,,Error,If the book has Water Damage, you can't choose higher than GOOD.
+	BOOK_Window()
+	return
 }
+else if (BOOK_Water)
 {
-
+	water := GetWaterDamage()
+}
+else
+{
+	water := ""
 }
 
 ;SET THE MAIN CONDITION PHRASE
@@ -315,7 +336,7 @@ book_cond := BOOKArray[book_condition]
 book_ed := EdArray[book_edition]
 
 ;OUTPUT MACRO TEXT
-SendRaw, %book_cond%%markings%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%book_notes%
+SendRaw, %book_cond%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%water%%markings%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
