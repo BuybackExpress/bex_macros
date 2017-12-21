@@ -107,7 +107,7 @@ GetWaterDamage() {
 	StringLower, WTR_Extent, WTR_Extent
 	WTR_Location := RegExReplace(WTR_Location, "\|",", ")
 	StringLower, WTR_Location, WTR_Location
-	return " " WTR_Degree . " damp-staining along " . WTR_Location . " to " . WTR_Extent . " of book,  but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
+	return " " WTR_Degree . " damp-staining along " . WTR_Location . " to " . WTR_Extent . " of book, but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
 }
 
 ;------------------- END WATER DAMAGE GUI ------------------------
