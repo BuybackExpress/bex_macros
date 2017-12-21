@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "2.1"
+version := "2.1.1"
 lupdated := "12/21/17"
 
 WTR_Degree := ""
@@ -147,7 +147,7 @@ VG_Window() {
 	Gui, VG: Show, w600 h300, Video Game Macros
 }
 
-VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","Acceptable Condition with noticeable wear"]
+VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","in Acceptable Condition with noticeable wear"]
 ;------------------- END GAME GUI ---------------------
 
 ;------------------- Create SOFT GUI ---------------------
