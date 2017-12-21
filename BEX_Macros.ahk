@@ -7,6 +7,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 version := "1.2.1"
 lupdated := "12/21/17"
 
+WTR_Degree := ""
+WTR_Location := ""
+WTR_Extent := ""
+WTR_String := ""
+
 ;------------------- CREATE SPLASH GUI -------------------
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Color, 000000
@@ -55,7 +60,7 @@ DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no sign
 Gui, BOOK: Font, s18
 Gui, SPLASH: +AlwaysOnTop
 Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable||
 Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
 Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w260 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
 Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
@@ -76,12 +81,36 @@ BOOK_Window() {
 BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
 EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
 
-GetWaterDamage() {
-	return " Something something water damage...."
-	;return %Water_Degree%" damp-staining along "%Water_Location%" to "%Water_Extent%" of book,  but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
+;------------------- END BOOK GUI -------------------
+
+;------------------- Create WATER DAMAGE GUI ---------------------
+
+Water_Window(){
+	Global
+	Gui, WATER: Font, s18
+	Gui, WATER: Add, Text, x30 y20 w300 center, -- Degree of Damage --
+	Gui, WATER: Add, DDL, vWTR_Degree x30 y50 w300 center, Minor||Moderate|Significant
+	Gui, WATER: Add, Text, x30 y100 w300 center, -- Location of Damage --
+	Gui, WATER: Add, ListBox, vWTR_Location x30 y140 w300 h200 center Multi, Top Corner||Bottom Corner|Inside Edge|Outside Edge|Top Page Edge|Bottom Page Edge
+	Gui, WATER: Add, Text, x30 y340 w300 center, -- Extent of Damage --
+	Gui, WATER: Add, Edit, vWTR_Extent x30 y380 w300 center
+	Gui, WATER: Add, Button, gWTR_OK x100 y450 w100 Default, Ok
+	Gui, WATER: Add, Button, gCancel x230 y450 w100, Cancel
+	Gui, WATER: Show, w360 h510, Water Damage
+	WinWaitClose, Water Damage
 }
 
-;------------------- END BOOK GUI -------------------
+GetWaterDamage() {
+	
+	global
+	Water_Window()
+	StringLower, WTR_Extent, WTR_Extent
+	WTR_Location := RegExReplace(WTR_Location, "\|",", ")
+	StringLower, WTR_Location, WTR_Location
+	return " " WTR_Degree . " damp-staining along " . WTR_Location . " to " . WTR_Extent . " of book,  but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
+}
+
+;------------------- END WATER DAMAGE GUI ------------------------
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Font, s18
@@ -361,11 +390,12 @@ if (BOOK_Water and book_condition < 4)
 }
 else if (BOOK_Water)
 {
-	water := GetWaterDamage()
+	WTR_String := GetWaterDamage()
 }
 else
 {
-	water := ""
+
+	water_str := ""
 }
 
 ;SET THE MAIN CONDITION PHRASE
@@ -373,13 +403,21 @@ book_cond := BOOKArray[book_condition]
 book_ed := EdArray[book_edition]
 
 ;OUTPUT MACRO TEXT
-SendRaw, %book_cond%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%water%%markings%%book_notes%
+SendRaw, %book_cond%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%WTR_String%%markings%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
 
 return
 ;------------------- END BOOK SUBMIT BUTTON FUNCTIONS -------------------
+
+;
+
+WTR_OK:
+Gui, Submit
+WinClose
+Return
+;
 
 ;------------------- BEGIN CD SUBMIT BUTTON FUNCTIONS -------------------
 CD_OK:
