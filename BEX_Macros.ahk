@@ -9,7 +9,7 @@ Gui, DVD: Font, s18
 Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
 Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
-Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable||
+Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable
 Gui, DVD: Add, Checkbox, vDVD_More_Notes x340 y30, Additional Notes?
 Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x340 y75, Replaced Case?
 Gui, DVD: Add, Checkbox, vLibrary x340 y120, Ex-Rental?
@@ -21,7 +21,7 @@ DVD_Window() {
 	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Good Condition with reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
+DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
