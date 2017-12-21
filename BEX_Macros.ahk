@@ -4,6 +4,31 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
+version := "1.2"
+lupdated := "12/21/17"
+
+;------------------- CREATE SPLASH GUI -------------------
+Gui, SPLASH: Font, s14
+Gui, SPLASH: Color, 000000
+Gui, SPLASH: Add, Text, cWhite x10 y20 w335 Center, Buyback Express Macros
+Gui, SPLASH: Font, s12
+Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Version %version%
+Gui, SPLASH: Add, Text, cWhite x10 y65 w335 Center, ---------------------------------
+Gui, SPLASH: Add, Text, cWhite x10 y85 w335 Center, Developed by:
+Gui, SPLASH: Font, s14
+Gui, SPLASH: Add, Text, cWhite x10 y110 w335 Center, Nathan Mangoff
+Gui, SPLASH: Add, Text, cWhite x10 y135 w335 Center, Aaron Spurlock
+Gui, SPLASH: Font, s10
+Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Last Updated: %lupdated%
+
+Splash() {
+Gui, SPLASH: Show, w350 h200, About BEX Macros
+}
+
+!2::
+Splash()
+Return
+
 ;------------------- Create DVD GUI -------------------
 Gui, DVD: Font, s18
 Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
@@ -234,7 +259,7 @@ else
 }
 
 ;CHECK IF FORMAT IS COMBO AND MODIFY TEXT
-if (format := "Combo")
+if (format = "Combo")
 {
 	format := "All Discs" 
 }
@@ -565,3 +590,4 @@ Reload
 return
 
 ;------------------- END SOFT SUBMIT BUTTON FUNCTIONS -------------------
+
