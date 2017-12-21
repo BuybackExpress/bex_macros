@@ -10,6 +10,7 @@ lupdated := "12/21/17"
 ;------------------- CREATE SPLASH GUI -------------------
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Color, 000000
+Gui, SPLASH: +AlwaysOnTop
 Gui, SPLASH: Add, Text, cWhite x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
 Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Version %version%
@@ -23,11 +24,10 @@ Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Last Updated: %lupdated%
 
 Splash() {
 Gui, SPLASH: Show, w350 h200, About BEX Macros
+Sleep, 10000
+WinClose, About BEX Macros
 }
 
-!2::
-Splash()
-Return
 
 ;------------------- Create DVD GUI -------------------
 Gui, DVD: Font, s18
@@ -167,6 +167,12 @@ return
 SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
+;------------------- INVOKE ABOUT WINDOW -------------------
+!2::
+Splash()
+Return
+;------------------- END ABOUT WINDOW HOTKEY -------------------
 
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
