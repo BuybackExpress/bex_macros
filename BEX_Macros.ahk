@@ -5,85 +5,112 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
 ;------------------- Create DVD GUI -------------------
-Gui, DVD: Add, Text, x10 y10 w225 Center, -- Format --
-Gui, DVD: Add, ddl, vFormat x10 y30 w225 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
-Gui, DVD: Add, Text, x10 y65 w225 Center, -- Condition --
-Gui, DVD: Add, ddl, vDVD_Condition x10 y80 w225 Center AltSubmit, New|Like New|Very Good|Acceptable||
-Gui, DVD: Add, Checkbox, vDVD_More_Notes x10 y120, Additional Notes?
-Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x10 y140, Replaced Case?
-Gui, DVD: Add, Checkbox, vLibrary x130 y120, Ex-Rental?
-Gui, DVD: Add, Checkbox, vDigitalCode x130 y140, Digital Code?
-Gui, DVD: Add, Button, gDVD_OK y170 x130 w50 Default, OK
-Gui, DVD: Add, Button, y170 x190 w50 gCancel, Cancel
+Gui, DVD: Font, s18
+Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
+Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
+Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
+Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable
+Gui, DVD: Add, Checkbox, vDVD_More_Notes x340 y30, Additional Notes?
+Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x340 y75, Replaced Case?
+Gui, DVD: Add, Checkbox, vLibrary x340 y120, Ex-Rental?
+Gui, DVD: Add, Checkbox, vDigitalCode x340 y165, Digital Code?
+Gui, DVD: Add, Button, gDVD_OK x320 y230 w100 Default, OK
+Gui, DVD: Add, Button, x460 y230 w100 gCancel, Cancel
 
-DVD_Window() 
-{
-	Gui, DVD: Show, w250 h200, DVD Macros
+DVD_Window() {
+	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-DVDArray := ["in NEW Condition!","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Good Condition with reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
+DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
+
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
-Gui, BOOK: Add, Text, x10 w225 Center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x10 w225 Center, New|Like New|Very Good|Good|Acceptable
-Gui, BOOK: Add, Checkbox, vMarkings x10, Markings?
-Gui, BOOK: Add, Checkbox, vBook_More_Notes x10, Additional Notes?
-Gui, BOOK: Add, Button, gBook_OK y140 x130 w50 Default, OK
-Gui, BOOK: Add, Button, y140 x190 w50 gCancel, Cancel
-; ------------------- END BOOK GUI -------------------
+Gui, BOOK: Font, s18
+Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
+Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
+Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w260 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
+Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
+Gui, BOOK: Add, DDL, vBOOK_AccessCard x210 y195 w80 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Text, x30 y250 w200, CD Included?
+Gui, BOOK: Add, DDL, vBOOK_CD x210 y245 w80 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Checkbox, vMarkings x340 y30, Markings?
+Gui, BOOK: Add, Checkbox, vBOOK_Library x340 y75, Ex-Rental?
+Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x340 y120, Additional Notes?
+Gui, BOOK: Add, Checkbox, vBOOK_Water x340 y165, Water Damage?
+Gui, BOOK: Add, Button, gBook_OK x320 y230 w100 Default, OK
+Gui, BOOK: Add, Button, x460 y230 w100 gCancel, Cancel
+
+BOOK_Window() {
+	Gui, BOOK: Show, w600 h300, Book Macros
+}
+
+BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
+EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
+
+GetWaterDamage() {
+	return " Something something water damage...."
+	;return %Water_Degree%" damp-staining along "%Water_Location%" to "%Water_Extent%" of book,  but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
+}
+
+;------------------- END BOOK GUI -------------------
 
 ;------------------- Create CD GUI ---------------------
-Gui, CD: Add, Text, x10 y10 w225 Center, -- Condition --
-Gui, CD: Add, ddl, vCD_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, CD: Add, Checkbox, vCD_More_Notes x10 y70, Additional Notes?
-Gui, CD: Add, Checkbox, vCD_ReplaceCase x10 y90, Replaced Case?
-Gui, CD: Add, Checkbox, vCD_Library x130 y70, Ex-Rental?
-Gui, CD: Add, Checkbox, vCD_Insert x130 y90, Missing Insert?
-Gui, CD: Add, Checkbox, vPromo x10 y110, Promotional Copy?
-Gui, CD: Add, Button, gCD_OK y120 x130 w50 Default, OK
-Gui, CD: Add, Button, y120 x190 w50 gCancel, Cancel
+Gui, CD: Font, s18
+Gui, CD: Add, Text, x30 y10 w260 Center, -- Condition --
+Gui, CD: Add, ddl, vCD_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, CD: Add, Checkbox, vCD_More_Notes x340 y110, Additional Notes?
+Gui, CD: Add, Checkbox, vCD_ReplaceCase x340 y150, Replaced Case?
+Gui, CD: Add, Checkbox, vCD_Library x30 y110, Ex-Rental?
+Gui, CD: Add, Checkbox, vCD_Insert x30 y150, Missing Insert?
+Gui, CD: Add, Checkbox, vPromo x30 y190, Promotional Copy?
+Gui, CD: Add, Button, gCD_OK x320 y230 w100 Default, OK
+Gui, CD: Add, Button, x460 y230 w100 gCancel, Cancel
 
 CD_Window() {
-	Gui, CD: Show, w250 h150, CD Macros
+	Gui, CD: Show, w600 h300, CD Macros
 }
 
 CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Very Good shape with only light, reasonable wear. Perfect-play Guarantee!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD.","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD."]
 ;------------------- END CD GUI ---------------------
 
 ;------------------- Create GAME GUI ---------------------
-Gui, VG: Add, Text, x10 y10 w225 Center, -- Condition --
-Gui, VG: Add, ddl, vVG_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, VG: Add, Checkbox, vVG_More_Notes x10 y70, Additional Notes?
-Gui, VG: Add, Checkbox, vVG_ReplaceCase x10 y90, Replaced Case?
-Gui, VG: Add, Checkbox, vVG_Paper x130 y70, Includes Paperwork?
-Gui, VG: Add, Button, gVG_OK y120 x130 w50 Default, OK
-Gui, VG: Add, Button, y120 x190 w50 gCancel, Cancel
+Gui, VG: Font, s18
+Gui, VG: Add, Text, x30 y10 w260 Center, -- Condition --
+Gui, VG: Add, ddl, vVG_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, VG: Add, Checkbox, vVG_More_Notes x340 y110, Additional Notes?
+Gui, VG: Add, Checkbox, vVG_ReplaceCase x30 y110, Replaced Case?
+Gui, VG: Add, Checkbox, vVG_Paper x30 y150, Includes Paperwork?
+Gui, VG: Add, Button, gVG_OK x320 y230 w100 Default, OK
+Gui, VG: Add, Button, x460 y230 w100 gCancel, Cancel
 
 VG_Window() {
-	Gui, VG: Show, w250 h150, Video Game Macros
+	Gui, VG: Show, w600 h300, Video Game Macros
 }
 
 VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","Acceptable Condition with noticeable wear"]
 ;------------------- END GAME GUI ---------------------
 
 ;------------------- Create SOFT GUI ---------------------
-Gui, SFT: Add, Text, x10 y10 w225 Center, -- Condition --
-Gui, SFT: Add, ddl, vSFT_Condition x10 y30 w225 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, SFT: Add, Text, x10 y55 w225 Center, -- Container --
-Gui, SFT: Add, DDL, vSFT_Container x10 y75 w225 Center, Box|Case
-Gui, SFT: Add, Checkbox, vSFT_More_Notes x10 y110, Additional Notes?
-Gui, SFT: Add, Checkbox, vSFT_ReplaceCase x10 y130, Replaced Case?
-Gui, SFT: Add, Checkbox, vSFT_Paper x130 y110, Includes Paperwork?
-Gui, SFT: Add, Button, gSFT_OK y140 x130 w50 Default, OK
-Gui, SFT: Add, Button, y140 x190 w50 gCancel, Cancel
+Gui, SFT: Font, s18
+Gui, SFT: Add, Text, x30 y10 w260 Center, -- Condition --
+Gui, SFT: Add, ddl, vSFT_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
+Gui, SFT: Add, Text, x30 y100 w260 Center, -- Container --
+Gui, SFT: Add, DDL, vSFT_Container x30 y140 w260 Center, Box|Case
+Gui, SFT: Add, Checkbox, vSFT_More_Notes x340 y50, Additional Notes?
+Gui, SFT: Add, Checkbox, vSFT_ReplaceCase x340 y95, Replaced Case?
+Gui, SFT: Add, Checkbox, vSFT_Paper x340 y140, Includes Paperwork?
+Gui, SFT: Add, Button, gSFT_OK x320 y230 w100 Default, OK
+Gui, SFT: Add, Button, x460 y230 w100 gCancel, Cancel
 
 SFT_Window() {
-	Gui, SFT: Show, w250 h170, Software Macros
+	Gui, SFT: Show, w600 h300, Software Macros
 }
 
 SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with some reasonable wear, but come with","have noticeable wear, but come with"]
 ;------------------- END SOFT GUI ---------------------
+
 ;END MAKING GUIS
 
 ;------------------- BEGIN DVD HOTKEY -------------------
@@ -93,9 +120,9 @@ return
 ;------------------- END DVD HOTKEY -------------------
 
 ;------------------- BEGIN BOOK HOTKEY -------------------
-;::#book::
-;Gui, BOOK: Show, w250 h170, Book Macros
-;return
+::#book::
+BOOK_Window()
+return
 ;------------------- END BOOK HOTKEY -------------------
 
 ;------------------- BEGIN CD HOTKEY -------------------
@@ -115,6 +142,21 @@ return
 SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
+
+;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
+Cancel:
+WinClose
+Reload
+return
+;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
+
+;------------------- ESCAPE CLOSES WINDOWS -------------------
+Escape::
+WinClose
+Reload
+return
+;------------------- END ESCAPE CLOSES WINDOWS -------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:
@@ -172,8 +214,7 @@ if (library and dvd_condition < 4)
 }
 else if (library)
 {
-	dvd_condition := dvd_condition + 2
-
+	dvd_condition := dvd_condition + 1
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
@@ -212,22 +253,15 @@ return
 
 ;------------------- END DVD SUBMIT BUTTON FUNCTIONS -------------------
 
-;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
-Cancel:
-WinClose
-Reload
-return
-;------------------- END CANCEL BUTTON CLOSES WINDOWS
-
 ;------------------- BEGIN BOOK SUBMIT BUTTON FUNCTIONS -------------------
 Book_OK:
 Gui, Submit
 
 ;FORM VALIDATION
-If (!condition)
+If (!book_condition)
 {
 	MsgBox,,Alert, Please select a condition.
-	Gui, BOOK: Show, w250 h170, Book Macros
+	BOOK_Window()
 	return
 }
 
@@ -235,32 +269,75 @@ If (!condition)
 if (book_more_notes)
 {
 	InputBox, book_notes, Notes, Enter additional notes,,,150
+	book_notes := " " + book_notes
 }
 
+;CHECK ACCESS CARD DropDown
+if (BOOK_AccessCard = 1){
+	BOOK_AC_INCL := " Access Card Included!"
+}
+else if (BOOK_AccessCard = 2){
+	BOOK_AC_INCL := " Access Card NOT Included."
+}
+else {
+	BOOK_AC_INCL := ""
+}
+
+;CHECK CD DROPDOWN
+if (BOOK_CD = 1){
+	BOOK_CD_INCL := " CD Included!"
+}
+else if (BOOK_CD = 2){
+	BOOK_CD_INCL := " CD NOT Included."
+}
+else {
+	BOOK_CD_INCL := ""
+}
 
 ;CHECK IF MARKINGS BOX IS CHECKED OR NOT
-IfEqual, Markings, true
+if (!markings)
 {
-	Markings := "Clean, mark-free interior! "
+	Markings := " Clean, mark-free interior!"
 }
 else 
 {
-	Markings := "Interior has some markings. "
+	Markings := " May include limited notes and/or highlighting."
 }
 
+;CHECK IF EX-RENTAL BOX IS CHECKED OR NoTab
+if (BOOK_Library and book_condition < 4)
+{
+	MsgBox,,Error,You cannot choose better than GOOD with Ex-Rental.
+	BOOK_Window()
+	return
+}
+else if (BOOK_Library)
+{
+	book_condition := book_condition + 2
+}
+
+;CHECK IF WATER DAMAGE BOX IS CHECKED OR NoTab
+if (BOOK_Water and book_condition < 4)
+{
+	MsgBox,,Error,If the book has Water Damage, you can't choose higher than GOOD.
+	BOOK_Window()
+	return
+}
+else if (BOOK_Water)
+{
+	water := GetWaterDamage()
+}
+else
+{
+	water := ""
+}
+
+;SET THE MAIN CONDITION PHRASE
+book_cond := BOOKArray[book_condition]
+book_ed := EdArray[book_edition]
+
 ;OUTPUT MACRO TEXT
-IfEqual, condition, Good
-{
-	SendRaw, Good Condition. Reasonable wear. Still very usable. %Markings%%book_notes%
-} 
-else IfEqual, condition, Very Good 
-{
-	SendRaw, Very Good Condition. Reasonable wear. Still very usable. %Markings% %book_notes%
-}
-else IfEqual, condition, Acceptable
-{
-	SendRaw, Acceptable Condition. Reasonable wear. Still very usable. %Markings% %book_notes%
-}
+SendRaw, %book_cond%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%water%%markings%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
