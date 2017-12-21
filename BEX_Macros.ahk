@@ -111,7 +111,6 @@ SFT_Window() {
 SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with some reasonable wear, but come with","have noticeable wear, but come with"]
 ;------------------- END SOFT GUI ---------------------
 
-
 ;END MAKING GUIS
 
 ;------------------- BEGIN DVD HOTKEY -------------------
@@ -143,6 +142,7 @@ return
 SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
@@ -359,7 +359,6 @@ If (!CD_condition)
 }
 
 ;ASK FOR USER INPUT IF ADDITIONAL NOTES ARE CHECKED
-
 if (CD_more_notes)
 {
 	InputBox, cd_notes, Notes, Enter additional notes,,,150
@@ -382,7 +381,7 @@ else
 	CD_ReplaceCase := ""
 }
 
-;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
+;CHECK IF MISSING INSERT BOX IS CHECKED OR NOT
 if (CD_Insert)
 {
 	if(CD_Condition < 3)
@@ -398,6 +397,8 @@ else
 	CD_Insert := ""
 }
 
+
+;CHECK IF PROMOTIONAL COPY CHECKBOX IS CHECKED OR NOT
 if (Promo)
 {
 	Promo := " Promotional Copy."
@@ -447,7 +448,6 @@ If (!VG_condition)
 }
 
 ;ASK FOR USER INPUT IF ADDITIONAL NOTES ARE CHECKED
-
 if (VG_more_notes)
 {
 	InputBox, VG_notes, Notes, Enter additional notes,,,150
@@ -460,7 +460,7 @@ if (VG_replacecase)
 	if(VG_Condition < 3)
 	{
 		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
-		CD_Window()
+		VG_Window()
 		return
 	}
 	VG_ReplaceCase := " Replacement case."
@@ -470,7 +470,7 @@ else
 	VG_ReplaceCase := ""
 }
 
-;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
+;CHECK IF PAPERWORK INCLUDED BOX IS CHECKED OR NOT
 if (VG_Paper)
 {
 	if(VG_condition = 1)
@@ -479,11 +479,11 @@ if (VG_Paper)
 		VG_Window()
 		return
 	}
-	Paper := " Any original paperwork is included."
+	VG_Paper := " Any original paperwork is included."
 }
 else 
 {
-	Paper := ""
+	VG_Paper := ""
 }
 
 ;SET THE MAIN CONDITION PHRASE
