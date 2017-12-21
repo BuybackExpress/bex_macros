@@ -23,9 +23,9 @@ Gui, SPLASH: Font, s10
 Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Last Updated: %lupdated%
 
 Splash() {
-Gui, SPLASH: Show, w350 h200, About BEX Macros
-Sleep, 10000
-WinClose, About BEX Macros
+	Gui, SPLASH: Show, w350 h200, About BEX Macros
+	Sleep, 10000
+	WinClose, About BEX Macros
 }
 
 
@@ -145,52 +145,52 @@ SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear"
 
 ;------------------- BEGIN DVD HOTKEY -------------------
 ::#dvd::
-DVD_Window()
+	DVD_Window()
 return
 ;------------------- END DVD HOTKEY -------------------
 
 ;------------------- BEGIN BOOK HOTKEY -------------------
 ::#book::
-BOOK_Window()
+	BOOK_Window()
 return
 ;------------------- END BOOK HOTKEY -------------------
 
 ;------------------- BEGIN CD HOTKEY -------------------
 ::#cd::
-CD_Window()
+	CD_Window()
 return
 ;------------------- END CD HOTKEY -------------------
 
 ;------------------- BEGIN VG/SOFT HOTKEY -------------------
 ::#vg::
-VG_Window()
+	VG_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
 
 ;------------------- BEGIN VG/SOFT HOTKEY -------------------
 ::#soft::
-SFT_Window()
+	SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
 
 ;------------------- INVOKE ABOUT WINDOW -------------------
 !2::
-Splash()
+	Splash()
 Return
 ;------------------- END ABOUT WINDOW HOTKEY -------------------
 
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
-WinClose
-Reload
+	WinClose
+	Reload
 return
 ;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
 
 ;------------------- ESCAPE CLOSES WINDOWS -------------------
 Escape::
-WinClose
-Reload
+	WinClose
+	Reload
 return
 ;------------------- END ESCAPE CLOSES WINDOWS -------------------
 
