@@ -31,6 +31,7 @@ WinClose, About BEX Macros
 
 ;------------------- Create DVD GUI -------------------
 Gui, DVD: Font, s18
+Gui, SPLASH: +AlwaysOnTop
 Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
 Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
@@ -52,6 +53,7 @@ DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no sign
 
 ;------------------- Create BOOK GUI -------------------
 Gui, BOOK: Font, s18
+Gui, SPLASH: +AlwaysOnTop
 Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
 Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
 Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
@@ -83,6 +85,7 @@ GetWaterDamage() {
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Font, s18
+Gui, SPLASH: +AlwaysOnTop
 Gui, CD: Add, Text, x30 y10 w260 Center, -- Condition --
 Gui, CD: Add, ddl, vCD_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, CD: Add, Checkbox, vCD_More_Notes x340 y110, Additional Notes?
@@ -102,6 +105,7 @@ CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Ver
 
 ;------------------- Create GAME GUI ---------------------
 Gui, VG: Font, s18
+Gui, SPLASH: +AlwaysOnTop
 Gui, VG: Add, Text, x30 y10 w260 Center, -- Condition --
 Gui, VG: Add, ddl, vVG_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, VG: Add, Checkbox, vVG_More_Notes x340 y110, Additional Notes?
@@ -119,6 +123,7 @@ VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear"
 
 ;------------------- Create SOFT GUI ---------------------
 Gui, SFT: Font, s18
+Gui, SPLASH: +AlwaysOnTop
 Gui, SFT: Add, Text, x30 y10 w260 Center, -- Condition --
 Gui, SFT: Add, ddl, vSFT_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, SFT: Add, Text, x30 y100 w260 Center, -- Container --
