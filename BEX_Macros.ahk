@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "2.1.1"
+version := "2.1.2"
 lupdated := "12/21/17"
 
 WTR_Degree := ""
@@ -217,10 +217,10 @@ return
 ;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
 
 ;------------------- ESCAPE CLOSES WINDOWS -------------------
-Escape::
-	WinClose
-	Reload
-return
+;Escape::
+;	WinClose
+;	Reload
+;return
 ;------------------- END ESCAPE CLOSES WINDOWS -------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
