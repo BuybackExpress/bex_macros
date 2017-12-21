@@ -544,3 +544,10 @@ return
 
 ;------------------- END SOFT SUBMIT BUTTON FUNCTIONS -------------------
 
+
+;------------------- ESCAPE CLOSES WINDOWS -------------------
+
+Escape::
+WinClose
+Reload
+return
