@@ -21,11 +21,8 @@ DVD_Window() {
 	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-<<<<<<< HEAD
 DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
-=======
-DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "in reasonable or better condition with library stickers/marks. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
->>>>>>> 554ca9f2cdab7e481c8a6d545bbefff57756ea5a
+
 ;------------------- END DVD GUI -------------------
 
 ;------------------- Create BOOK GUI -------------------
@@ -568,11 +565,3 @@ Reload
 return
 
 ;------------------- END SOFT SUBMIT BUTTON FUNCTIONS -------------------
-
-
-;------------------- ESCAPE CLOSES WINDOWS -------------------
-
-Escape::
-WinClose
-Reload
-return
