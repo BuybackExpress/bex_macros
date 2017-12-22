@@ -38,7 +38,7 @@ Splash() {
 Gui, DVD: Font, s18
 Gui, SPLASH: +AlwaysOnTop
 Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
-Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
+Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Blu-ray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
 Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable
 Gui, DVD: Add, Checkbox, vDVD_More_Notes x340 y30, Additional Notes?
@@ -52,7 +52,7 @@ DVD_Window() {
 	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, reasonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
+DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, reasonable wear. Perfect-Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect-Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect-Play Guarantee."]
 
 ;------------------- END DVD GUI -------------------
 
