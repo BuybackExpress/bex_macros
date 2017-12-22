@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "2.1.2"
+version := "2.1.5"
 lupdated := "12/21/17"
 
 WTR_Degree := ""
@@ -147,7 +147,7 @@ VG_Window() {
 	Gui, VG: Show, w600 h300, Video Game Macros
 }
 
-VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear.","in Acceptable Condition with noticeable wear."]
+VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear.","in Good Condition with reasonable wear.","in Acceptable Condition with noticeable wear."]
 ;------------------- END GAME GUI ---------------------
 
 ;------------------- Create SOFT GUI ---------------------
@@ -533,7 +533,7 @@ if (VG_replacecase)
 {
 	if(VG_Condition < 3)
 	{
-		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
+		MsgBox,,Alert, If you replaced the case, you can't choose higher than GOOD.
 		VG_Window()
 		return
 	}
