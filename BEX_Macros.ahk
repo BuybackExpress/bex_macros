@@ -599,7 +599,7 @@ if (SFT_replacecase)
 {
 	if(SFT_Condition < 3)
 	{
-		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
+		MsgBox,,Alert, If you replaced the case, you can't choose higher than GOOD condition.
 		SFT_Window()
 		return
 	}
