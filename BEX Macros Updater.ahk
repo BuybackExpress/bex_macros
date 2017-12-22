@@ -4,10 +4,6 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-
-
-
-
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Color, 3e3e3e
 Gui, SPLASH: +Disabled
@@ -28,20 +24,11 @@ Exists(file) {
 	return False
 }
 
-DISABLE() ;By RealityRipple at http://www.xtremevbtalk.com/archive/index.php/t-258725.html
-{
-  WinGet, id, ID, A
-  menu:=DllCall("user32\GetSystemMenu","UInt",id,"UInt",0)
-  DllCall("user32\DeleteMenu","UInt",menu,"UInt",0xF060,"UInt",0x0)
-  WinGetPos,x,y,w,h,ahk_id %id%
-  WinMove,ahk_id %id%,,%x%,%y%,%w%,% h-1
-  WinMove,ahk_id %id%,,%x%,%y%,%w%,% h+1
-}
-
 Updater() {
 
-sfile := "\\be-localserver\Shared\Source\BEX_Macros.exe"
+sfile := "P:\-- WORK --\BEX\BEX_Macros.exe"
 dfile := A_MyDocuments . "\BEX\BEX_Macros.exe"
+path := A_MyDocuments . "\BEX\"
 
 GuiControl, SPLASH:,UpStatus, Closing Current
 Process, Close, BEX_Macros.exe
@@ -72,6 +59,10 @@ Sleep, 1000
 
 GuiControl, SPLASH:,UpStatus, Attempting to Copy New File
 Sleep, 1000
+
+if (!Exists(path)) {
+	FileCreateDir, % path
+}
 
 if (Exists(sfile) and !Exists(dfile)) {
 	FileCopy, % sfile, % dfile, 1
