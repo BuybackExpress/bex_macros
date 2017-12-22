@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
 Gui, SPLASH: Font, s14
-Gui, SPLASH: Color, 3e3e3e
+Gui, SPLASH: Color, 000000
 Gui, SPLASH: +Disabled
 Gui, SPLASH: Add, Text, cWhite x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
