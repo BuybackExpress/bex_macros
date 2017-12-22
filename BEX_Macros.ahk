@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "2.1.2"
+version := "2.1.5"
 lupdated := "12/21/17"
 
 WTR_Degree := ""
@@ -38,7 +38,7 @@ Splash() {
 Gui, DVD: Font, s18
 Gui, SPLASH: +AlwaysOnTop
 Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
-Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Bluray|Combo|HD-DVD|PSP Video
+Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Blu-ray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
 Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable
 Gui, DVD: Add, Checkbox, vDVD_More_Notes x340 y30, Additional Notes?
@@ -52,7 +52,7 @@ DVD_Window() {
 	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, resaonable wear. Perfect Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect Play Guarantee."]
+DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, reasonable wear. Perfect-Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect-Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect-Play Guarantee."]
 
 ;------------------- END DVD GUI -------------------
 
@@ -147,7 +147,7 @@ VG_Window() {
 	Gui, VG: Show, w600 h300, Video Game Macros
 }
 
-VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","in Acceptable Condition with noticeable wear"]
+VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear.","in Good Condition with reasonable wear.","in Acceptable Condition with noticeable wear."]
 ;------------------- END GAME GUI ---------------------
 
 ;------------------- Create SOFT GUI ---------------------
@@ -179,7 +179,7 @@ return
 ;------------------- END DVD HOTKEY -------------------
 
 ;------------------- BEGIN BOOK HOTKEY -------------------
-::#book::
+::#bk::
 	BOOK_Window()
 return
 ;------------------- END BOOK HOTKEY -------------------
@@ -197,7 +197,7 @@ return
 ;------------------- END VG/SOFT HOTKEY -------------------
 
 ;------------------- BEGIN VG/SOFT HOTKEY -------------------
-::#soft::
+::#sft::
 	SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
@@ -533,7 +533,7 @@ if (VG_replacecase)
 {
 	if(VG_Condition < 3)
 	{
-		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
+		MsgBox,,Alert, If you replaced the case, you can't choose higher than GOOD.
 		VG_Window()
 		return
 	}
@@ -599,7 +599,7 @@ if (SFT_replacecase)
 {
 	if(SFT_Condition < 3)
 	{
-		MsgBox,,Alert, Please uncheck the Replaced Case checkbox when choosing new or very good condition.
+		MsgBox,,Alert, If you replaced the case, you can't choose higher than GOOD condition.
 		SFT_Window()
 		return
 	}
