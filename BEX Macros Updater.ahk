@@ -26,7 +26,7 @@ Exists(file) {
 
 Updater() {
 
-sfile := "P:\-- WORK --\BEX\BEX_Macros.exe"
+sfile := "\\be-localserver\Shared\Source\BEX_Macros.exe"
 dfile := A_MyDocuments . "\BEX\BEX_Macros.exe"
 path := A_MyDocuments . "\BEX\"
 
