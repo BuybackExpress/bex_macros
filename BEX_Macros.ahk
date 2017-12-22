@@ -7,10 +7,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 version := "2.1.5"
 lupdated := "12/21/17"
 
+;------------------------- Global Variables -------------------
 WTR_Degree := ""
 WTR_Location := ""
 WTR_Extent := ""
 WTR_String := ""
+
 
 ;------------------- CREATE SPLASH GUI -------------------
 Gui, SPLASH: Font, s14
@@ -32,7 +34,7 @@ Splash() {
 	Sleep, 10000
 	WinClose, About BEX Macros
 }
-
+;------------------- END SPLASH GUI --------------------------
 
 ;------------------- Create DVD GUI -------------------
 Gui, DVD: Font, s18
@@ -60,7 +62,7 @@ DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no sign
 Gui, BOOK: Font, s18
 Gui, SPLASH: +AlwaysOnTop
 Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable||
+Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
 Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
 Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w260 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
 Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
@@ -85,17 +87,18 @@ EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not 
 
 ;------------------- Create WATER DAMAGE GUI ---------------------
 
+Gui, WATER: Font, s18
+Gui, WATER: Add, Text, x30 y20 w300 center, -- Degree of Damage --
+Gui, WATER: Add, DDL, vWTR_Degree x30 y50 w300 center, Minor||Moderate|Significant
+Gui, WATER: Add, Text, x30 y100 w300 center, -- Location of Damage --
+Gui, WATER: Add, ListBox, vWTR_Location x30 y140 w300 h200 center Multi, Top Corner||Bottom Corner|Inside Edge|Outside Edge|Top Page Edge|Bottom Page Edge
+Gui, WATER: Add, Text, x30 y340 w300 center, -- Extent of Damage --
+Gui, WATER: Add, Edit, vWTR_Extent gWTR_ChkDta x30 y380 w300 center
+Gui, WATER: Add, Button, gWTR_OK x100 y450 w100 Default +Disabled, OK
+Gui, WATER: Add, Button, gCancel x230 y450 w100, Cancel
+
 Water_Window(){
 	Global
-	Gui, WATER: Font, s18
-	Gui, WATER: Add, Text, x30 y20 w300 center, -- Degree of Damage --
-	Gui, WATER: Add, DDL, vWTR_Degree x30 y50 w300 center, Minor||Moderate|Significant
-	Gui, WATER: Add, Text, x30 y100 w300 center, -- Location of Damage --
-	Gui, WATER: Add, ListBox, vWTR_Location x30 y140 w300 h200 center Multi, Top Corner||Bottom Corner|Inside Edge|Outside Edge|Top Page Edge|Bottom Page Edge
-	Gui, WATER: Add, Text, x30 y340 w300 center, -- Extent of Damage --
-	Gui, WATER: Add, Edit, vWTR_Extent x30 y380 w300 center
-	Gui, WATER: Add, Button, gWTR_OK x100 y450 w100 Default, Ok
-	Gui, WATER: Add, Button, gCancel x230 y450 w100, Cancel
 	Gui, WATER: Show, w360 h510, Water Damage
 	WinWaitClose, Water Damage
 }
@@ -130,6 +133,7 @@ CD_Window() {
 }
 
 CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Very Good shape with only light, reasonable wear. Perfect-play Guarantee!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD.","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD."]
+
 ;------------------- END CD GUI ---------------------
 
 ;------------------- Create GAME GUI ---------------------
@@ -148,6 +152,7 @@ VG_Window() {
 }
 
 VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear.","in Good Condition with reasonable wear.","in Acceptable Condition with noticeable wear."]
+
 ;------------------- END GAME GUI ---------------------
 
 ;------------------- Create SOFT GUI ---------------------
@@ -168,6 +173,7 @@ SFT_Window() {
 }
 
 SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with some reasonable wear, but come with","have noticeable wear, but come with"]
+
 ;------------------- END SOFT GUI ---------------------
 
 ;END MAKING GUIS
@@ -208,7 +214,6 @@ return
 Return
 ;------------------- END ABOUT WINDOW HOTKEY -------------------
 
-
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
 	WinClose
@@ -227,11 +232,12 @@ return
 DVD_OK:
 ;submit the variables
 Gui, Submit
+Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!format or !dvd_condition)
 {
-	MsgBox,,Alert, Please select both a condition and format.
+	MsgBox,,Nope, Please select both a condition and format.
 	DVD_Window()
 	return
 }
@@ -321,6 +327,7 @@ return
 ;------------------- BEGIN BOOK SUBMIT BUTTON FUNCTIONS -------------------
 Book_OK:
 Gui, Submit
+Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!book_condition)
@@ -412,17 +419,25 @@ return
 ;------------------- END BOOK SUBMIT BUTTON FUNCTIONS -------------------
 
 ;
-
 WTR_OK:
 Gui, Submit
-WinClose
+Gui, +OwnDialogs
 Return
 ;
+
+;
+WTR_ChkDta:
+GuiControl, WATER: Enable, OK
+Return
+;
+
+
 
 ;------------------- BEGIN CD SUBMIT BUTTON FUNCTIONS -------------------
 CD_OK:
 ;submit the variables
 Gui, Submit
+Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!CD_condition)
@@ -512,6 +527,7 @@ return
 VG_OK:
 ;submit the variables
 Gui, Submit
+Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!VG_condition)
@@ -578,6 +594,7 @@ return
 SFT_OK:
 ;submit the variables
 Gui, Submit
+Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!SFT_condition or !SFT_Container)
