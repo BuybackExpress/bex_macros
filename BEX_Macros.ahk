@@ -147,7 +147,7 @@ VG_Window() {
 	Gui, VG: Show, w600 h300, Video Game Macros
 }
 
-VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear","in Acceptable Condition with noticeable wear"]
+VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with reasonable wear.","in Acceptable Condition with noticeable wear."]
 ;------------------- END GAME GUI ---------------------
 
 ;------------------- Create SOFT GUI ---------------------
@@ -179,7 +179,7 @@ return
 ;------------------- END DVD HOTKEY -------------------
 
 ;------------------- BEGIN BOOK HOTKEY -------------------
-::#book::
+::#bk::
 	BOOK_Window()
 return
 ;------------------- END BOOK HOTKEY -------------------
@@ -197,7 +197,7 @@ return
 ;------------------- END VG/SOFT HOTKEY -------------------
 
 ;------------------- BEGIN VG/SOFT HOTKEY -------------------
-::#soft::
+::#sft::
 	SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
