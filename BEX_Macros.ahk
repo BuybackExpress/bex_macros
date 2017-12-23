@@ -232,7 +232,6 @@ return
 DVD_OK:
 ;submit the variables
 Gui, Submit
-Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!format or !dvd_condition)
@@ -327,7 +326,6 @@ return
 ;------------------- BEGIN BOOK SUBMIT BUTTON FUNCTIONS -------------------
 Book_OK:
 Gui, Submit
-Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!book_condition)
@@ -421,7 +419,6 @@ return
 ;
 WTR_OK:
 Gui, Submit
-Gui, +OwnDialogs
 Return
 ;
 
@@ -437,7 +434,6 @@ Return
 CD_OK:
 ;submit the variables
 Gui, Submit
-Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!CD_condition)
@@ -527,7 +523,6 @@ return
 VG_OK:
 ;submit the variables
 Gui, Submit
-Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!VG_condition)
@@ -594,7 +589,6 @@ return
 SFT_OK:
 ;submit the variables
 Gui, Submit
-Gui, +OwnDialogs
 
 ;FORM VALIDATION
 If (!SFT_condition or !SFT_Container)
