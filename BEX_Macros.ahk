@@ -4,8 +4,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "2.2"
-lupdated := "12/22/17"
+version := "2.3"
+lupdated := "12/27/17"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
