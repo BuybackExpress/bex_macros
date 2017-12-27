@@ -62,25 +62,26 @@ DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no sign
 Gui, BOOK: Font, s18
 Gui, SPLASH: +AlwaysOnTop
 Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w260 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
+Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w290 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
 Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w260 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
+Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w290 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
 Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
-Gui, BOOK: Add, DDL, vBOOK_AccessCard x210 y195 w80 AltSubmit, Yes|No|N/A||
-Gui, BOOK: Add, Text, x30 y250 w200, CD Included?
-Gui, BOOK: Add, DDL, vBOOK_CD x210 y245 w80 AltSubmit, Yes|No|N/A||
-Gui, BOOK: Add, Checkbox, vMarkings x340 y30, Markings?
-Gui, BOOK: Add, Checkbox, vBOOK_Library x340 y75, Ex-Rental?
-Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x340 y120, Additional Notes?
-Gui, BOOK: Add, Checkbox, vBOOK_Water x340 y165, Water Damage?
-Gui, BOOK: Add, Button, gBook_OK x320 y230 w100 Default, OK
-Gui, BOOK: Add, Button, x460 y230 w100 gCancel, Cancel
+Gui, BOOK: Add, DDL, vBOOK_AccessCard x200 y195 w120 AltSubmit, Yes|No|N/A||
+Gui, BOOK: Add, Text, x30 y250 w200, Disc Included?
+Gui, BOOK: Add, DDL, vbook_disc x200 y245 w120 AltSubmit, Yes (CD)|Yes (DVD)|No|N/A||
+Gui, BOOK: Add, Checkbox, vMarkings x350 y30, Markings?
+Gui, BOOK: Add, Checkbox, vBOOK_Library x350 y75, Ex-Rental?
+Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x350 y120, Additional Notes? 
+Gui, BOOK: Add, Checkbox, vBOOK_Water x350 y165, Water Damage?
+Gui, BOOK: Add, Button, gBook_OK x350 y230 w100 Default, OK
+Gui, BOOK: Add, Button, x470 y230 w100 gCancel, Cancel
+
 
 BOOK_Window() {
 	Gui, BOOK: Show, w600 h300, Book Macros
 }
 
-BOOKArray := ["NEW","Like New","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
+BOOKArray := ["BRAND NEW BOOK!!","Book in Like New Condition!","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
 EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
 
 ;------------------- END BOOK GUI -------------------
@@ -91,7 +92,7 @@ Gui, WATER: Font, s18
 Gui, WATER: Add, Text, x30 y20 w300 center, -- Degree of Damage --
 Gui, WATER: Add, DDL, vWTR_Degree x30 y50 w300 center, Minor||Moderate|Significant
 Gui, WATER: Add, Text, x30 y100 w300 center, -- Location of Damage --
-Gui, WATER: Add, ListBox, vWTR_Location x30 y140 w300 h200 center Multi, Top Corner||Bottom Corner|Inside Edge|Outside Edge|Top Page Edge|Bottom Page Edge
+Gui, WATER: Add, ListBox, vWTR_Location x30 y140 w300 h200 center 8, Top Corner||Bottom Corner|Inside Edge|Outside Edge|Top Page Edge|Bottom Page Edge
 Gui, WATER: Add, Text, x30 y340 w300 center, -- Extent of Damage --
 Gui, WATER: Add, Edit, vWTR_Extent gWTR_ChkDta x30 y380 w300 center
 Gui, WATER: Add, Button, gWTR_OK x100 y450 w100 Default +Disabled, OK
@@ -176,6 +177,26 @@ SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear"
 
 ;------------------- END SOFT GUI ---------------------
 
+;------------------- FIX TEXT FOR ADDITIONAL NOTES ---------------
+FixText(str)
+{
+	;Capitalize the first character
+	rstr := substr(str, 1, 1)
+	str := substr(str, 2, 150)
+	StringUpper, rstr, rstr
+	rstr = %rstr%%str%
+
+	len := StrLen(rstr)
+
+	if (substr(rstr, len, 1) <> ".")
+	{
+		rstr = %rstr%.
+	}
+
+	return rstr
+}
+;------------------- END FIX TEXT -----------------------
+
 ;END MAKING GUIS
 
 ;------------------- BEGIN DVD HOTKEY -------------------
@@ -246,7 +267,7 @@ If (!format or !dvd_condition)
 if (dvd_more_notes)
 {
 	InputBox, dvd_notes, Notes, Enter additional notes,,,150
-	dvd_notes := " " + dvd_notes
+	dvd_notes := " " + FixText(dvd_notes)
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
@@ -262,9 +283,9 @@ else
 ;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
 if (DigitalCode)
 {
-	if(dvd_condition < 4)
+	if(dvd_condition = 1)
 	{
-		MsgBox,,Nope, Items missing a DIGITAL CODE cannot be listed higher than ACCEPTABLE.
+		MsgBox,,Nope, There is no need to select the Digital Code box if the item is new.
 		DVD_Window()
 		return
 	}
@@ -339,7 +360,7 @@ If (!book_condition)
 if (book_more_notes)
 {
 	InputBox, book_notes, Notes, Enter additional notes,,,150
-	book_notes := " " + book_notes
+	book_notes := " " + FixText(book_notes)
 }
 
 ;CHECK ACCESS CARD DropDown
@@ -354,26 +375,28 @@ else {
 }
 
 ;CHECK CD DROPDOWN
-if (BOOK_CD = 1){
-	BOOK_CD_INCL := " CD Included!"
+if (book_disc = 4){
+	book_disc_INCL := ""
 }
-else if (BOOK_CD = 2){
-	BOOK_CD_INCL := " CD NOT Included."
+else if (book_disc = 3){
+	book_disc_INCL := " Disc NOT Included."
 }
-else {
-	BOOK_CD_INCL := ""
-}
-
-;CHECK IF MARKINGS BOX IS CHECKED OR NOT
-if (!markings)
+else if (book_disc = 2)
 {
-	Markings := " Clean, mark-free interior!"
+	MsgBox, 4, Sealed?, Is the Disc Sealed?
+	IfMsgBox, Yes
+		book_disc_incl := " Sealed DVD Included!"
+	Else
+		book_disc_incl := " DVD Included!"
 }
 else 
 {
-	Markings := " May include limited notes and/or highlighting."
+	MsgBox, 4, Sealed?, Is the Disc Sealed?
+	IfMsgBox, Yes
+		book_disc_incl := " Sealed CD Included!"
+	Else
+		book_disc_incl := " CD Included!"
 }
-
 ;CHECK IF EX-RENTAL BOX IS CHECKED OR NoTab
 if (BOOK_Library and book_condition < 4)
 {
@@ -396,19 +419,40 @@ if (BOOK_Water and book_condition < 4)
 else if (BOOK_Water)
 {
 	WTR_String := GetWaterDamage()
+
+	if (!markings)
+	{
+		Markings := " Mark-free interior!"
+	}
+	else 
+	{
+		Markings := " May include limited notes and/or highlighting."
+	}
 }
 else
 {
 
 	water_str := ""
+
+	;CHECK IF MARKINGS BOX IS CHECKED OR NOT
+	if (!markings)
+	{
+		Markings := " Clean, mark-free interior!"
+	}
+	else 
+	{
+		Markings := " May include limited notes and/or highlighting."
+	}
+
 }
+
 
 ;SET THE MAIN CONDITION PHRASE
 book_cond := BOOKArray[book_condition]
 book_ed := EdArray[book_edition]
 
 ;OUTPUT MACRO TEXT
-SendRaw, %book_cond%%book_ed%%BOOK_CD_INCL%%BOOK_AC_INCL%%WTR_String%%markings%%book_notes%
+SendRaw, %book_cond%%book_ed%%book_disc_INCL%%BOOK_AC_INCL%%WTR_String%%markings%%book_notes%
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
@@ -429,7 +473,6 @@ Return
 ;
 
 
-
 ;------------------- BEGIN CD SUBMIT BUTTON FUNCTIONS -------------------
 CD_OK:
 ;submit the variables
@@ -447,7 +490,7 @@ If (!CD_condition)
 if (CD_more_notes)
 {
 	InputBox, cd_notes, Notes, Enter additional notes,,,150
-	cd_notes := " " + cd_notes
+	cd_notes := " " + FixText(cd_notes)
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
@@ -536,7 +579,7 @@ If (!VG_condition)
 if (VG_more_notes)
 {
 	InputBox, VG_notes, Notes, Enter additional notes,,,150
-	VG_notes := " " + VG_notes
+	VG_notes := " " + FixText(VG_notes)
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
@@ -602,7 +645,7 @@ If (!SFT_condition or !SFT_Container)
 if (SFT_more_notes)
 {
 	InputBox, SFT_notes, Notes, Enter additional notes,,,150
-	SFT_notes := " " + SFT_notes
+	SFT_notes := " " + FixText(SFT_notes)
 }
 
 ;CHECK IF REPLACED CASE BOX IS CHECKED OR NOT
