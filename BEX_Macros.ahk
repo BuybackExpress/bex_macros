@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "1.1.0-beta"
+version := "1.0.0-beta"
 lupdated := "12/28/17"
 
 ;------------------------- Global Variables -------------------
@@ -20,7 +20,7 @@ Gui, SPLASH: Color, 000000
 Gui, SPLASH: +AlwaysOnTop
 Gui, SPLASH: Add, Text, cWhite x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
-Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Version %version%
+Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, %version%
 Gui, SPLASH: Add, Text, cWhite x10 y65 w335 Center, ---------------------------------
 Gui, SPLASH: Add, Text, cWhite x10 y85 w335 Center, Developed by:
 Gui, SPLASH: Font, s14
