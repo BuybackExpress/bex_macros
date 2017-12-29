@@ -44,8 +44,6 @@ path := A_MyDocuments . "\BEX\"
 ; Update Progress Bar to 10%
 GuiControl, SPLASH:,UpStat,10
 
-Sleep, 60000
-
 ; Kill the currently running app process
 Process, Close, BEX_Macros.exe
 ; Update Progress Bar to 20%
