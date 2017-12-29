@@ -4,8 +4,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "1.1.1-beta"
-lupdated := "12/29/17"
+version := "1.2.0b"
+;lupdated := "12/29/17"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
@@ -15,19 +15,20 @@ WTR_String := ""
 
 
 ;------------------- CREATE SPLASH GUI -------------------
-Gui, SPLASH: Font, s14
-Gui, SPLASH: Color, 000000
+Gui, SPLASH: Font, s16 w700, Verdana
+;Gui, SPLASH: Color, 000000
 Gui, SPLASH: +AlwaysOnTop
-Gui, SPLASH: Add, Text, cWhite x10 y20 w335 Center, Buyback Express Macros
-Gui, SPLASH: Font, s12
+Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
+Gui, SPLASH: Font, s16 w600, Verdana
 Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, %version%
-Gui, SPLASH: Add, Text, cWhite x10 y65 w335 Center, ---------------------------------
-Gui, SPLASH: Add, Text, cWhite x10 y85 w335 Center, Developed by:
-Gui, SPLASH: Font, s14
-Gui, SPLASH: Add, Text, cWhite x10 y110 w335 Center, Nathan Mangoff
-Gui, SPLASH: Add, Text, cWhite x10 y135 w335 Center, Aaron Spurlock
-Gui, SPLASH: Font, s10
-Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Last Updated: %lupdated%
+;Gui, SPLASH: Add, Text, x10 y65 w335 Center, ---------------------------------
+Gui, SPLASH: Font, s12 w700, Verdana
+Gui, SPLASH: Add, Text, x10 y100 w335 Center, Developed by:
+Gui, SPLASH: Font, s12 w400, Verdana
+Gui, SPLASH: Add, Text, x10 y130 w335 Center, Nathan Mangoff
+Gui, SPLASH: Add, Text, x10 y155 w335 Center, Aaron Spurlock
+Gui, SPLASH: Font, s10, Verdana
+;Gui, SPLASH: Add, Text, x10 y175 w335 Center, Last Updated: %lupdated%
 
 Splash() {
 	Gui, SPLASH: Show, w350 h200, About BEX Macros

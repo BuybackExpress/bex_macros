@@ -7,7 +7,14 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
-## [1.1.0-beta] - 2017-12-29
+## [1.2.0b] - 2017-12-29
+
+### CHANGED
+* 
+
+---
+
+## [1.1.0b] - 2017-12-29
 
 ### ADDED
 * Updater now has a progress bar.
@@ -22,7 +29,7 @@ All notable changes to this porject will be documented in this file. The format 
 * To give user time to read text, we had arbitrary pauses. No more.This should drastically speed up the updating.
 
 ---
-## [1.0.0-beta] - 2017-12-27
+## [1.0.0-b] - 2017-12-27
 
 ### ADDED
 * Added and mofified variants for included discs.
