@@ -3,11 +3,25 @@
 All notable changes to this porject will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
-* Visual Tweaks / Finesse
-* Automatic Version Checking for Updater
+* Proper Version Checking for Updater
 
 ---
 
+## [1.1.0-beta] - 2017-12-29
+
+### ADDED
+* Updater now has a progress bar.
+* Updater code is fully commented now.
+
+### CHANGED
+* GUI colors and formatting were tidying up.
+
+### REMOVED
+* Updater no longer has status text.
+* Removed clutter from updater GUI.
+* To give user time to read text, we had arbitrary pauses. No more.This should drastically speed up the updating.
+
+---
 ## [1.0.0-beta] - 2017-12-27
 
 ### ADDED

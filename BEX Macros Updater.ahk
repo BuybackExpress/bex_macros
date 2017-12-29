@@ -19,7 +19,6 @@ Gui, SPLASH: +Disabled
 Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
 Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Refreshing Version
-;Gui, SPLASH: Add, Text, x10 y65 w335 Center, ----------------------------------
 Gui, SPLASH: Add, Text, x10 y93 w335 Center, Progress:
 Gui, SPLASH: Font, s16
 Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
