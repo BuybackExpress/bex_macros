@@ -18,11 +18,11 @@ Gui, SPLASH: Margin, 5, 5
 Gui, SPLASH: +Disabled
 Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
-Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Auto Updater
-Gui, SPLASH: Add, Text, x10 y70 w335 Center, ---------------------------------
+Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Refreshing Version
+;Gui, SPLASH: Add, Text, x10 y65 w335 Center, ----------------------------------
 Gui, SPLASH: Add, Text, x10 y93 w335 Center, Progress:
 Gui, SPLASH: Font, s16
-Gui, SPLASH: Add, Progress, vUpStat cBlue x10 y120 w300 h20, 0
+Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
 Gui, SPLASH: Font, s10
 Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Press ESCAPE to Exit
 Gui, SPLASH: Show, w350 h200, Updating BEX Macros
@@ -44,6 +44,8 @@ path := A_MyDocuments . "\BEX\"
 
 ; Update Progress Bar to 10%
 GuiControl, SPLASH:,UpStat,10
+
+Sleep, 60000
 
 ; Kill the currently running app process
 Process, Close, BEX_Macros.exe
