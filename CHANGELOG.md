@@ -5,12 +5,14 @@ All notable changes to this porject will be documented in this file. The format 
 ## [Unreleased]
 * Proper Version Checking for Updater
 
+---
 
 ## [1.2.0b] - 2017-12-29
 
 ### CHANGED
 * Cleaned up About GUI
 
+---
 
 ## [1.1.0b] - 2017-12-29
 
@@ -26,7 +28,7 @@ All notable changes to this porject will be documented in this file. The format 
 * Removed clutter from updater GUI.
 * To give user time to read text, we had arbitrary pauses. No more.This should drastically speed up the updating.
 
-
+---
 ## [1.0.0-b] - 2017-12-27
 
 ### ADDED
