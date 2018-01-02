@@ -4,8 +4,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "1.3.1b"
-;lupdated := "12/29/17"
+
+version := "1.4.0b"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
@@ -16,30 +16,45 @@ WTR_String := ""
 
 ;------------------- CREATE SPLASH GUI -------------------
 Gui, SPLASH: Font, s16 w700, Verdana
-;Gui, SPLASH: Color, 000000
 Gui, SPLASH: +AlwaysOnTop
 Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s16 w600, Verdana
 Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, %version%
-;Gui, SPLASH: Add, Text, x10 y65 w335 Center, ---------------------------------
 Gui, SPLASH: Font, s12 w700, Verdana
 Gui, SPLASH: Add, Text, x10 y100 w335 Center, Developed by:
 Gui, SPLASH: Font, s12 w400, Verdana
 Gui, SPLASH: Add, Text, x10 y130 w335 Center, Nathan Mangoff
 Gui, SPLASH: Add, Text, x10 y155 w335 Center, Aaron Spurlock
 Gui, SPLASH: Font, s10, Verdana
-;Gui, SPLASH: Add, Text, x10 y175 w335 Center, Last Updated: %lupdated%
 
 Splash() {
 	Gui, SPLASH: Show, w350 h200, About BEX Macros
-	Sleep, 10000
+	Sleep, 5000
 	WinClose, About BEX Macros
 }
 ;------------------- END SPLASH GUI --------------------------
 
+;------------------- CREATE MACRO BUTTONS GUI ------------------
+Gui, MACRO: Font, s18, Verdana
+Gui, MACRO: +AlwaysOnTop
+Gui, MACRO: -MinimizeBox
+Gui, MACRO: Add, Text, y20 w250, Buyback Express
+Gui, MACRO: Add, Button, x25 y70 w200 gDVD, Movie
+Gui, MACRO: Add, Button, x25 y130 w200 gBOOK, Book
+Gui, MACRO: Add, Button, x25 y190 w200 gMUSIC, Music
+Gui, MACRO: Add, Button, x25 y250 w200 gVIDEOGAME, Video Game
+Gui, MACRO: Add, Button, x25 y310 w200 gSOFTWARE, Software
+
+
+Macro_Window() {
+	width := A_ScreenWidth - 270
+	Gui, MACRO: Show, x%width% y20 w250 h380, BEX Macros
+}
+
+;------------------- END MACRO BUTTONS GUI ---------------------
+
 ;------------------- Create DVD GUI -------------------
 Gui, DVD: Font, s18
-Gui, SPLASH: +AlwaysOnTop
 Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
 Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Blu-ray|Combo|HD-DVD|PSP Video
 Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
@@ -61,7 +76,6 @@ DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.",
 
 ;------------------- Create BOOK GUI -------------------
 Gui, BOOK: Font, s18
-Gui, SPLASH: +AlwaysOnTop
 Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
 Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w290 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
 Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
@@ -119,7 +133,6 @@ GetWaterDamage() {
 
 ;------------------- Create CD GUI ---------------------
 Gui, CD: Font, s18
-Gui, SPLASH: +AlwaysOnTop
 Gui, CD: Add, Text, x30 y10 w260 Center, -- Condition --
 Gui, CD: Add, ddl, vCD_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, CD: Add, Checkbox, vCD_More_Notes x340 y110, Additional Notes?
@@ -140,7 +153,6 @@ CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Ver
 
 ;------------------- Create GAME GUI ---------------------
 Gui, VG: Font, s18
-Gui, SPLASH: +AlwaysOnTop
 Gui, VG: Add, Text, x30 y10 w260 Center, -- Condition --
 Gui, VG: Add, ddl, vVG_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, VG: Add, Checkbox, vVG_More_Notes x340 y110, Additional Notes?
@@ -159,7 +171,6 @@ VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear.
 
 ;------------------- Create SOFT GUI ---------------------
 Gui, SFT: Font, s18
-Gui, SPLASH: +AlwaysOnTop
 Gui, SFT: Add, Text, x30 y10 w260 Center, -- Condition --
 Gui, SFT: Add, ddl, vSFT_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
 Gui, SFT: Add, Text, x30 y100 w260 Center, -- Container --
@@ -199,6 +210,8 @@ FixText(str)
 ;------------------- END FIX TEXT -----------------------
 
 ;END MAKING GUIS
+
+Macro_Window()
 
 ;------------------- BEGIN DVD HOTKEY -------------------
 ::#dvd::
@@ -243,12 +256,40 @@ Cancel:
 return
 ;------------------- END CANCEL BUTTON CLOSES WINDOWS ---------------------
 
-;------------------- ESCAPE CLOSES WINDOWS -------------------
-;Escape::
-;	WinClose
-;	Reload
-;return
-;------------------- END ESCAPE CLOSES WINDOWS -------------------
+;------------------- BEGIN DVD BUTTON -------------------
+DVD:
+	Gui, MACRO: Hide
+	DVD_Window()
+return
+;------------------- END DVD BUTTON -------------------
+
+;------------------- BEGIN BOOK BUTTON -------------------
+BOOK:
+	Gui, MACRO: Hide
+	BOOK_Window()
+return
+;------------------- END BOOK BUTTON -------------------
+
+;------------------- BEGIN CD BUTTON -------------------
+MUSIC:
+	Gui, MACRO: Hide
+	CD_Window()
+return
+;------------------- END CD BUTTON -------------------
+
+;------------------- BEGIN VG/SOFT BUTTON -------------------
+VIDEOGAME:
+	Gui, MACRO: Hide
+	VG_Window()
+return
+;------------------- END VG/SOFT BUTTON -------------------
+
+;------------------- BEGIN VG/SOFT BUTTON -------------------
+SOFTWARE:
+	Gui, MACRO: Hide
+	SFT_Window()
+return
+;------------------- END VG/SOFT BUTTON -------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:

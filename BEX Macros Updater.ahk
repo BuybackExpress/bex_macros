@@ -3,6 +3,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
+
 #NoTrayIcon
 
 if (!A_IsAdmin) {
@@ -203,6 +204,7 @@ CheckVer()
 Loop
 {
 	CheckVer()
+
 	Sleep, 60000
 }
 
@@ -212,5 +214,7 @@ Loop
 ExitApp
 
 !3::
+
+
 CheckVer()
 ;Updater()
