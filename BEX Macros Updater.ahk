@@ -24,7 +24,7 @@ Gui, SPLASH: Font, s16
 Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
 Gui, SPLASH: Font, s10
 Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Press ESCAPE to Exit
-Gui, SPLASH: Show, w350 h200, Updating BEX Macros
+
 
 Exists(file) {
 	IfExist, % file
@@ -34,12 +34,14 @@ Exists(file) {
 
 Updater() {
 
-
 ; Define File Paths
 ;sfile := "\\be-localserver\Shared\Source\BEX_Macros.exe"
 sfile := "P:\-- WORK --\BEX\BEX_Macros.exe"
 dfile := A_MyDocuments . "\BEX\BEX_Macros.exe"
 path := A_MyDocuments . "\BEX\"
+
+; Show the Splash Wx`indow
+Gui, SPLASH: Show, w350 h200, Updating BEX Macros
 
 ; Update Progress Bar to 10%
 GuiControl, SPLASH:,UpStat,10
@@ -118,11 +120,36 @@ Sleep, 2000
 ; Open up About Window and then exit
 Send, !2
 
-ExitApp
+;ExitApp
+return
 
 }
 
-Updater()
+CheckVer()
+{
+	myPath := A_MyDocuments . "\BEX\CHANGELOG.md"
+	FileReadLine, myVer, % myPath, 10
+	myVer := SubStr(myVer, 5, 5)
+
+	mainPath := A_MyDocuments . "\BEX\CHANGELOG.md"
+	FileReadLine, mainVer, % mainPath, 10
+	mainVer := SubStr(mainVer, 5, 5)
+
+	if (mainVer <> myVer) {
+		Updater()
+		return
+	}
+	
+	return
+}
+
+Loop
+{
+	CheckVer()
+	Sleep, 28800000
+}
+
+
 
 Escape::
 ExitApp
