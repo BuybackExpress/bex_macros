@@ -3,8 +3,13 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
-; #NoTrayIcon
 
+#NoTrayIcon
+
+if (!A_IsAdmin) {
+	Run *RunAs "%A_ScriptFullPath%"
+	ExitApp
+}
 
 /*
 ERROR CODE LEGEND
@@ -37,7 +42,7 @@ Exists(file) {
 }
 
 Updater() {
-
+BlockInput, On
 ; Define File Paths
 spath := "\\be-localserver\Shared\Source\"
 dpath := A_MyDocuments . "\BEX\"
@@ -168,6 +173,7 @@ GuiControl, SPLASH:,UpStat,100
 Sleep, 2000
 
 Gui, SPLASH: Hide
+BlockInput, Off
 
 ; Open up About Window and then exit
 Send, !2
@@ -198,7 +204,8 @@ CheckVer()
 Loop
 {
 	CheckVer()
-	Sleep, 28800000
+
+	Sleep, 60000
 }
 
 
@@ -207,4 +214,7 @@ Loop
 ExitApp
 
 !3::
-Updater()
+
+
+CheckVer()
+;Updater()
