@@ -64,7 +64,7 @@ Gui, SPLASH: +AlwaysOnTop
 Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
 Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w290 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
 Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w290 Center, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
+Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w290 Center AltSubmit, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
 Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
 Gui, BOOK: Add, DDL, vBOOK_AccessCard x200 y195 w120 AltSubmit, Yes|No|N/A||
 Gui, BOOK: Add, Text, x30 y250 w200, Disc Included?
@@ -82,7 +82,7 @@ BOOK_Window() {
 }
 
 BOOKArray := ["BRAND NEW BOOK!!","Book in Like New Condition!","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
-EdArray := ["",""," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
+EdArray := [""," Loose-Leaf Edition."," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
 
 ;------------------- END BOOK GUI -------------------
 
