@@ -36,7 +36,6 @@ Updater() {
 
 ; Define File Paths
 sfile := "\\be-localserver\Shared\Source\BEX_Macros.exe"
-;sfile := "P:\-- WORK --\BEX\BEX_Macros.exe"
 dfile := A_MyDocuments . "\BEX\BEX_Macros.exe"
 path := A_MyDocuments . "\BEX\"
 
@@ -119,6 +118,8 @@ GuiControl, SPLASH:,UpStat,100
 
 ; Wait 2 seconds before closing for good measure
 Sleep, 2000
+
+GuiControl, SPLASH: Hide
 
 ; Open up About Window and then exit
 Send, !2
