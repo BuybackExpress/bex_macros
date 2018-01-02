@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-version := "1.3.0b"
+version := "1.3.1b"
 ;lupdated := "12/29/17"
 
 ;------------------------- Global Variables -------------------
@@ -55,7 +55,7 @@ DVD_Window() {
 	Gui, DVD: Show, w600 h300, DVD Macros
 }
 
-DVDArray := DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, reasonable wear. Perfect-Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect-Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect-Play Guarantee."]
+DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, reasonable wear. Perfect-Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect-Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect-Play Guarantee."]
 
 ;------------------- END DVD GUI -------------------
 

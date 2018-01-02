@@ -7,14 +7,15 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
-## [1.3.0b] - 2018-01-02
+## [1.3.1b] - 2018-01-02
 
 ### ADDED
 * Updater now checks actual version numbers in changelog.
-* Updater now runs in background to check version every day
 
-### CHANGED
-* Cleaned up some code
+### FIXED
+* Fixed some redundancy in an array
+
+---
 
 ## [1.2.0b] - 2017-12-29
 
