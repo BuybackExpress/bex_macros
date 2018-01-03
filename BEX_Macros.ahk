@@ -3,9 +3,9 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
+#NoTrayIcon
 
-
-version := "1.4.0b"
+version := "1.5.0b"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
@@ -246,8 +246,17 @@ return
 ;------------------- INVOKE ABOUT WINDOW -------------------
 !2::
 	Splash()
-Return
+return
 ;------------------- END ABOUT WINDOW HOTKEY -------------------
+
+;------------------- SHOW TOOLBOX WINDOW HOTKEY -------------------
+!3::
+	Macro_Window()
+return
+;------------------- END TOOLBOX HOTKEY -------------------
+
+!^Esc::
+ExitApp
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
