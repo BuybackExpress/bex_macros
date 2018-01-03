@@ -23,8 +23,8 @@ ERROR CODE LEGEND
 
 ; Define File Paths
 spath := "\\be-localserver\Shared\Source\"
-dpath := A_MyDocuments . "\BEX\"
-dfile := [A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\CHANGELOG.md"]
+dpath := A_MyDocuments . "\BEX Macros\"
+dfile := [A_MyDocuments . "\BEX Macros\BEX_Macros.exe", A_MyDocuments . "\BEX Macros\CHANGELOG.md"]
 sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
 clog := % dpath . "CHANGELOG.md"
 

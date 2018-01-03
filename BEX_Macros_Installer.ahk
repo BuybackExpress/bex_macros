@@ -22,6 +22,7 @@ ERROR CODE LEGEND
 7283 = Couldn't copy BEX_Macros_Launcher.
 7284 = Couldn't copy BEX_Macros_Updater.
 1081 = Could not create shortcut.
+3925 = Could not delete existing folder.
 */
 
 Gui, SPLASH: Font, s14
@@ -43,10 +44,10 @@ Exists(file) {
 
 Install()
 {
-	BlockInput, On
+	;BlockInput, On
 	
 	; Folder paths to destination and source
-	dpath := A_MyDocuments . "\BEX\"
+	dpath := A_MyDocuments . "\BEX Macros\"
 	spath := "\\be-localserver\Shared\Source\"
 
 	; File paths for destination and source files
@@ -54,7 +55,8 @@ Install()
 	; 2 = BEX_Macros.exe
 	; 3 = BEX_Macros_Launcher.exe
 	; 4 = BEX_Macros_Updater.exe
-	dfiles := [A_MyDocuments . "\BEX\ChangeLog.md", A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\BEX_Macros_Launcher.exe", A_MyDocuments . "\BEX\BEX_Macros_Updater.exe"]
+	dfiles := [A_MyDocuments . "\BEX Macros\ChangeLog.md", A_MyDocuments . "\BEX Macros\BEX_Macros.exe", A_MyDocuments . "\BEX Macros\BEX_Macros_Launcher.exe", A_MyDocuments . "\BEX Macros\BEX_Macros_Updater.exe"]
+	;dfiles := [A_MyDocuments . "\BEX\ChangeLog.md", A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\BEX_Macros_Launcher.exe", A_MyDocuments . "\BEX\BEX_Macros_Updater.exe"]
 	sfiles := ["\\be-localserver\Shared\Source\ChangeLog.md", "\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\BEX_Macros_Launcher.exe", "\\be-localserver\Shared\Source\BEX_Macros_Updater.exe"]
 
 	; Show the Splash Wx`indow
@@ -93,7 +95,14 @@ Install()
 
 	; If the BEX folder DOES exist, update progress bar to 50% and delete it
 	if (Exists(dpath)) {
-		FileRemoveDir, % dpath
+		FileRemoveDir, % dpath, 1
+
+		if (ErrorLevel)
+		{
+			MsgBox,,Error!, Error: 3925`rCould not remove directory!, 30
+			return 0
+		}
+
 		GuiControl, SPLASH:,UpStat,50
 	}
 	
@@ -107,7 +116,7 @@ Install()
 
 	for key, file in sfiles
 	{
-		FileCopy, file, dfile[key], 1
+		FileCopy, % file, % dfiles[key], 1
 
 		if (ErrorLevel)
 		{
@@ -120,9 +129,9 @@ Install()
 
 	GuiControl, SPLASH:,UpStat,85
 
-	if (Exists(dfile[3]))
+	if (Exists(dfiles[3]))
 	{
-		FileCreateShortcut, dfile[3], %A_Desktop%.\BEX Macros.lnk
+		FileCreateShortcut, % dfiles[3], %A_Desktop%.\BEX Macros.lnk
 
 		if (ErrorLevel)
 		{
@@ -130,7 +139,9 @@ Install()
 			return 0
 		}
 
-		Run *RunAs dfile[3]
+		runfile := dfiles[3]
+
+		Run *RunAs %runfile%
 		
 		; Wait until the new app is running before continuing
 		Process, Wait, BEX_Macros_Launcher.exe, 30
@@ -142,10 +153,14 @@ Install()
 		Sleep, 2000
 
 		Gui, SPLASH: Hide
-		BlockInput, Off
+		;BlockInput, Off
 	}
 
 	return 0
 }
 
+Install()
+ExitApp
+
+!Esc::
 ExitApp

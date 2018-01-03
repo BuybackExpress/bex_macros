@@ -40,7 +40,7 @@ BlockInput, On
 ; Define File Paths
 
 spath := "\\be-localserver\Shared\Source\"
-dpath := A_MyDocuments . "\BEX\"
+dpath := A_MyDocuments . "\BEX Macros\"
 dfile := % dpath . "BEX_Macros_Launcher.exe"
 sfile := % spath . "BEX_Macros_Launcher.exe"
 
