@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-#NoTrayIcon
+;#NoTrayIcon
 
 if (!A_IsAdmin) {
 	Run *RunAs "%A_ScriptFullPath%"
@@ -23,7 +23,6 @@ ERROR CODE LEGEND
 
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Margin, 5, 5
-;Gui, SPLASH: Color, 000000
 Gui, SPLASH: +Disabled
 Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
@@ -51,8 +50,6 @@ dfile := [A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\CHANGELOG
 sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
 clog := % dpath . "CHANGELOG.md"
 
-;MsgBox,,, % dfiles[1] dfiles[2]
-
 ; Show the Splash Wx`indow
 Gui, SPLASH: Show, w350 h200, Updating BEX Macros
 
@@ -70,6 +67,24 @@ Process, WaitClose, BEX_Macros.exe
 
 ; Update Progress Bar to 30%
 GuiControl, SPLASH:,UpStat,30
+
+; Check to see if the source file (update) exists.
+if (Exists(sfile[1])) {
+	; If source exists, update progress bar to 45%
+	GuiControl, SPLASH:,UpStat,50
+} else {
+	MsgBox,,Error!, Code: 7634,30
+	return
+}
+
+; Check to see if the source file (update) exists.
+if (Exists(sfile[2])) {
+	; If source exists, update progress bar to 45%
+	GuiControl, SPLASH:,UpStat,55
+} else {
+	MsgBox,,Error!, Code: 9136,30
+	return
+}
 
 ; Check to see if the local copy of the app exists. If so, delete it.
 if (Exists(dfile[1])) {
@@ -100,25 +115,6 @@ if (Exists(dfile[2])) {
 		GuiControl, SPLASH:,UpStat,45
 	}
 }
-
-; Check to see if the source file (update) exists.
-if (Exists(sfile[1])) {
-	; If source exists, update progress bar to 45%
-	GuiControl, SPLASH:,UpStat,50
-} else {
-	MsgBox,,Error!, Code: 7634,30
-	return
-}
-
-; Check to see if the source file (update) exists.
-if (Exists(sfile[2])) {
-	; If source exists, update progress bar to 45%
-	GuiControl, SPLASH:,UpStat,55
-} else {
-	MsgBox,,Error!, Code: 9136,30
-	return
-}
-
 
 ; If the BEX folder DOES exist, update progress bar to 50% and continue
 if (Exists(dpath)) {
@@ -201,11 +197,16 @@ CheckVer()
 	return
 }
 
+UpdateAll(){
+	Run, BEX_Macros_UpdateAll
+	ExitApp
+}
+
 Loop
 {
 	CheckVer()
-
-	Sleep, 60000
+	msgbox,,,Checked...
+	Sleep, 6000
 }
 
 
@@ -214,7 +215,7 @@ Loop
 ExitApp
 
 !3::
-
-
 CheckVer()
-;Updater()
+
+^!9::
+UpdateAll()

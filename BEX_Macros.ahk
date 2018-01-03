@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
 
-version := "1.4.0b"
+version := "1.5.0b"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
