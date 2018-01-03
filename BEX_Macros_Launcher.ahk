@@ -43,11 +43,16 @@ Exists(file) {
 Updater() {
 BlockInput, On
 ; Define File Paths
-spath := "\\be-localserver\Shared\Source\"
-dpath := A_MyDocuments . "\BEX\"
 
-dfile := [A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\CHANGELOG.md"]
-sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
+;TEMPORARY FOR TESTING
+spath := A_MyDocuments . "\Test\Source\"
+dpath := A_MyDocuments . "\Test\BEX\"
+
+;spath := "\\be-localserver\Shared\Source\"
+;dpath := A_MyDocuments . "\BEX\"
+
+dfile := [% dpath . "BEX_Macros.exe", % dpath . "CHANGELOG.md"]
+sfile := [% spath . "BEX_Macros.exe", % spath . "CHANGELOG.md"]
 clog := % dpath . "CHANGELOG.md"
 
 ; Show the Splash Wx`indow
@@ -205,8 +210,7 @@ UpdateAll(){
 Loop
 {
 	CheckVer()
-	msgbox,,,Checked...
-	Sleep, 6000
+	Sleep, 60000
 }
 
 
