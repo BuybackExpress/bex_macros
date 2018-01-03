@@ -7,7 +7,7 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
-## [1.4.0b] - 2018-01-03
+## [1.5.0b] - 2018-01-03
 
 ### ADDED
 * New App to update the Launcher
