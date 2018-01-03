@@ -11,6 +11,8 @@ All notable changes to this porject will be documented in this file. The format 
 
 ### ADDED
 * New App to update the Launcher
+* New Installer
+
 
 ---
 

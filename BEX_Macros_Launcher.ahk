@@ -22,17 +22,10 @@ ERROR CODE LEGEND
 */
 
 ; Define File Paths
-
-;TEMPORARY FOR TESTING
-spath := A_MyDocuments . "\Test\Source\"
-dpath := A_MyDocuments . "\Test\BEX\"
-dfile := [A_MyDocuments . "\Test\BEX\BEX_Macros.exe", A_MyDocuments . "\Test\BEX\CHANGELOG.md"]
-sfile := [A_MyDocuments . "\Test\Source\BEX_Macros.exe", A_MyDocuments . "\Test\Source\CHANGELOG.md"]
-
-;spath := "\\be-localserver\Shared\Source\"
-;dpath := A_MyDocuments . "\BEX\"
-;dfile := [A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\CHANGELOG.md"]
-;sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
+spath := "\\be-localserver\Shared\Source\"
+dpath := A_MyDocuments . "\BEX\"
+dfile := [A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\CHANGELOG.md"]
+sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
 clog := % dpath . "CHANGELOG.md"
 
 Gui, SPLASH: Font, s14
@@ -207,7 +200,7 @@ CheckVer()
 }
 
 UpdateAll(){
-	Run, BEX_Macros_UpdateAll
+	Run, BEX_Macros_Updater
 	ExitApp
 }
 

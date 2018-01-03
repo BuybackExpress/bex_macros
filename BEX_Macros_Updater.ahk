@@ -39,16 +39,10 @@ Updater() {
 BlockInput, On
 ; Define File Paths
 
-;TEMPORARY FOR TESTING
-spath := A_MyDocuments . "\Test\Source\"
-sfile := A_MyDocuments . "\Test\Source\BEX_Macros_Launcher.exe"
-dpath := A_MyDocuments . "\Test\BEX\"
-dfile := A_MyDocuments . "\Test\BEX\BEX_Macros_Launcher.exe"
-
-;spath := "\\be-localserver\Shared\Source\"
-;dpath := A_MyDocuments . "\BEX\"
-;dfile := % dpath . "BEX_Macros_Launcher.exe"
-;sfile := % spath . "BEX_Macros_Launcher.exe"
+spath := "\\be-localserver\Shared\Source\"
+dpath := A_MyDocuments . "\BEX\"
+dfile := % dpath . "BEX_Macros_Launcher.exe"
+sfile := % spath . "BEX_Macros_Launcher.exe"
 
 ; Show the Splash Wx`indow
 Gui, SPLASH: Show, w350 h200, Updating BEX Macros Launcher
