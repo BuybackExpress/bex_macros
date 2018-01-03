@@ -21,6 +21,20 @@ ERROR CODE LEGEND
 7634 = Source CHANGELOG not found
 */
 
+; Define File Paths
+
+;TEMPORARY FOR TESTING
+spath := A_MyDocuments . "\Test\Source\"
+dpath := A_MyDocuments . "\Test\BEX\"
+dfile := [A_MyDocuments . "\Test\BEX\BEX_Macros.exe", A_MyDocuments . "\Test\BEX\CHANGELOG.md"]
+sfile := [A_MyDocuments . "\Test\Source\BEX_Macros.exe", A_MyDocuments . "\Test\Source\CHANGELOG.md"]
+
+;spath := "\\be-localserver\Shared\Source\"
+;dpath := A_MyDocuments . "\BEX\"
+;dfile := [A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\CHANGELOG.md"]
+;sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
+clog := % dpath . "CHANGELOG.md"
+
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Margin, 5, 5
 Gui, SPLASH: +Disabled
@@ -31,7 +45,7 @@ Gui, SPLASH: Add, Text, x10 y93 w335 Center, Progress:
 Gui, SPLASH: Font, s16
 Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
 Gui, SPLASH: Font, s10
-Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Press ESCAPE to Exit
+Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Press Alt+ESCAPE to Exit
 
 
 Exists(file) {
@@ -41,19 +55,9 @@ Exists(file) {
 }
 
 Updater() {
+global
+
 BlockInput, On
-; Define File Paths
-
-;TEMPORARY FOR TESTING
-spath := A_MyDocuments . "\Test\Source\"
-dpath := A_MyDocuments . "\Test\BEX\"
-
-;spath := "\\be-localserver\Shared\Source\"
-;dpath := A_MyDocuments . "\BEX\"
-
-dfile := [% dpath . "BEX_Macros.exe", % dpath . "CHANGELOG.md"]
-sfile := [% spath . "BEX_Macros.exe", % spath . "CHANGELOG.md"]
-clog := % dpath . "CHANGELOG.md"
 
 ; Show the Splash Wx`indow
 Gui, SPLASH: Show, w350 h200, Updating BEX Macros
@@ -186,12 +190,12 @@ return
 
 CheckVer()
 {
-	myPath := A_MyDocuments . "\BEX\CHANGELOG.md"
-	FileReadLine, myVer, % myPath, 10
+	global
+
+	FileReadLine, myVer, % clog, 10
 	myVer := SubStr(myVer, 5, 5)
 
-	mainPath := "\\be-localserver\Shared\Source\CHANGELOG.md"
-	FileReadLine, mainVer, % mainPath, 10
+	FileReadLine, mainVer, % sfile[2], 10
 	mainVer := SubStr(mainVer, 5, 5)
 
 	if (mainVer <> myVer) {
@@ -205,6 +209,12 @@ CheckVer()
 UpdateAll(){
 	Run, BEX_Macros_UpdateAll
 	ExitApp
+}
+
+if(Exists(dfile[1])) 
+{
+	Run % dfile[1]
+	Sleep, 1500
 }
 
 Loop

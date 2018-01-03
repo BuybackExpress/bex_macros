@@ -20,7 +20,6 @@ ERROR CODE LEGEND
 
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Margin, 5, 5
-;Gui, SPLASH: Color, 000000
 Gui, SPLASH: +Disabled
 Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macro Launcher
 Gui, SPLASH: Font, s12
@@ -29,8 +28,6 @@ Gui, SPLASH: Add, Text, x10 y93 w335 Center, Progress:
 Gui, SPLASH: Font, s16
 Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
 Gui, SPLASH: Font, s10
-Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Press ESCAPE to Exit
-
 
 Exists(file) {
 	IfExist, % file
@@ -50,7 +47,6 @@ dfile := A_MyDocuments . "\Test\BEX\BEX_Macros_Launcher.exe"
 
 ;spath := "\\be-localserver\Shared\Source\"
 ;dpath := A_MyDocuments . "\BEX\"
-
 ;dfile := % dpath . "BEX_Macros_Launcher.exe"
 ;sfile := % spath . "BEX_Macros_Launcher.exe"
 
@@ -126,7 +122,7 @@ if (Exists(sfile) and !Exists(dfile)) {
 
 
 ; Wait until the new app is running before continuing
-Process, Wait, BEX_Macros_Updater.exe, 30
+Process, Wait, BEX_Macros_Launcher.exe, 30
 
 ; Update is complete, update progress bar to 100%
 GuiControl, SPLASH:,UpStat,100
@@ -136,9 +132,6 @@ Sleep, 2000
 
 Gui, SPLASH: Hide
 BlockInput, Off
-
-; Open up About Window and then exit
-Send, !2
 
 return 1
 }

@@ -246,8 +246,17 @@ return
 ;------------------- INVOKE ABOUT WINDOW -------------------
 !2::
 	Splash()
-Return
+return
 ;------------------- END ABOUT WINDOW HOTKEY -------------------
+
+;------------------- SHOW TOOLBOX WINDOW HOTKEY -------------------
+!3::
+	Macro_Window()
+return
+;------------------- END TOOLBOX HOTKEY -------------------
+
+!^Esc::
+ExitApp
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
