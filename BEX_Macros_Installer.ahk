@@ -3,7 +3,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
-
+#NoTrayIcon
 
 if (!A_IsAdmin) {
 	Run *RunAs "%A_ScriptFullPath%"
@@ -44,7 +44,7 @@ Exists(file) {
 
 Install()
 {
-	;BlockInput, On
+	BlockInput, On
 	
 	; Folder paths to destination and source
 	dpath := A_MyDocuments . "\BEX Macros\"
@@ -153,7 +153,7 @@ Install()
 		Sleep, 2000
 
 		Gui, SPLASH: Hide
-		;BlockInput, Off
+		BlockInput, Off
 	}
 
 	return 0

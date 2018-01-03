@@ -3,8 +3,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
-
-;#NoTrayIcon
+#NoTrayIcon
 
 if (!A_IsAdmin) {
 	Run *RunAs "%A_ScriptFullPath%"
