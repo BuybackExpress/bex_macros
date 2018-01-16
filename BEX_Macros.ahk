@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
 
-version := "1.5.0b"
+version := "1.6.0b"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
@@ -44,11 +44,12 @@ Gui, MACRO: Add, Button, x25 y130 w200 gBOOK, Book
 Gui, MACRO: Add, Button, x25 y190 w200 gMUSIC, Music
 Gui, MACRO: Add, Button, x25 y250 w200 gVIDEOGAME, Video Game
 Gui, MACRO: Add, Button, x25 y310 w200 gSOFTWARE, Software
+Gui, MACRO: Add, Button, x25 y370 w200 gCARD, Access Card
 
 
 Macro_Window() {
 	width := A_ScreenWidth - 270
-	Gui, MACRO: Show, x%width% y20 w250 h380, BEX Macros
+	Gui, MACRO: Show, x%width% y20 w250 h440, BEX Macros
 }
 
 ;------------------- END MACRO BUTTONS GUI ---------------------
@@ -189,6 +190,15 @@ SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear"
 
 ;------------------- END SOFT GUI ---------------------
 
+;------------------- CARD Phrase ---------------------
+
+CRD_Phrase() {
+	SendRaw, New, Unused Access Code! Code Guaranteed to Work!
+	;reload
+}
+
+;------------------- END CARD Phrase ---------------------
+
 ;------------------- FIX TEXT FOR ADDITIONAL NOTES ---------------
 FixText(str)
 {
@@ -242,6 +252,10 @@ return
 	SFT_Window()
 return
 ;------------------- END VG/SOFT HOTKEY -------------------
+
+::#crd::
+	CRD_Phrase()
+return
 
 ;------------------- INVOKE ABOUT WINDOW -------------------
 !2::
@@ -299,6 +313,14 @@ SOFTWARE:
 	SFT_Window()
 return
 ;------------------- END VG/SOFT BUTTON -------------------
+
+;------------------- BEGIN CARD BUTTON -------------------
+CARD:
+	Gui, MACRO: Hide	
+	CRD_Phrase()
+	reload
+return
+;------------------- END CARD BUTTON -------------------
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:
