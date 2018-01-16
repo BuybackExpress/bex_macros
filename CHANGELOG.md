@@ -7,6 +7,13 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
+## [1.6.0b] - 2018-01-03
+
+### ADDED
+* New button and corresponding phrase for stand alone access cards
+
+
+---
 ## [1.5.0b] - 2018-01-03
 
 ### ADDED
