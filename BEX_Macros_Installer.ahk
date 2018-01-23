@@ -49,6 +49,7 @@ Install()
 	; Folder paths to destination and source
 	dpath := A_MyDocuments . "\BEX Macros\"
 	spath := "\\be-localserver\Shared\Source\"
+	startupPath := A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\"
 
 	; File paths for destination and source files
 	; 1 = ChangeLog.md
@@ -138,6 +139,15 @@ Install()
 			MsgBox,,Error!, Error: 1081`rUnable to create shortcut!, 30
 			return 0
 		}
+
+		FileCreateShortcut, % dfiles[3], %startupPath%BEX Macros.lnk
+
+		if (ErrorLevel)
+		{
+			MsgBox,,Error!, Error: 1081`rUnable to create shortcut!, 30
+			return 0
+		}
+
 
 		runfile := dfiles[3]
 
