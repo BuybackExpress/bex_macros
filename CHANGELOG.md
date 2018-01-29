@@ -7,6 +7,22 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
+## [1.7.1b] - 2018-01-03
+
+### FIXED
+* Added a sleep just before reload so that the macro gui doesn't steal focus too quickly
+
+
+---
+
+## [1.7.0b] - 2018-01-03
+
+### ADDED
+* Installer Creates shortcut in startup
+
+
+---
+
 ## [1.6.0b] - 2018-01-03
 
 ### ADDED

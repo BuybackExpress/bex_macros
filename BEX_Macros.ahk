@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
 
-version := "1.6.0b"
+version := "1.7.1b"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
@@ -410,6 +410,8 @@ cond := DVDArray[dvd_condition]
 
 SendRaw, %Format% and Case %cond%%dvd_replacecase%%DigitalCode%%dvd_notes%
 
+Sleep, 2000
+
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
 
@@ -527,6 +529,8 @@ book_ed := EdArray[book_edition]
 ;OUTPUT MACRO TEXT
 SendRaw, %book_cond%%book_ed%%book_disc_INCL%%BOOK_AC_INCL%%WTR_String%%markings%%book_notes%
 
+Sleep, 2000
+
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
 
@@ -628,6 +632,8 @@ CD_cond := CDArray[CD_condition]
 
 SendRaw, %CD_cond%%Promo%%CD_ReplaceCase%%CD_Insert%%cd_notes%
 
+Sleep, 2000
+
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
 
@@ -694,6 +700,8 @@ VG_cond := VGArray[VG_condition]
 
 SendRaw, Disc and Case %VG_cond% Perfect-Play Guarantee!%VG_ReplaceCase%%Paper%%VG_notes%
 
+Sleep, 2000
+
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
 
@@ -759,6 +767,8 @@ SFT_cond := SFTArray[SFT_condition]
 ;OUTPUT THE MACRO TEXT
 
 SendRaw, Disc and %SFT_Container% %SFT_cond% Perfect-Play Guarantee!%SFT_ReplaceCase%%SFT_Paper%%SFT_notes%
+
+Sleep, 2000
 
 ;RELOAD SCRIPT TO RESET VARIABLES
 Reload
