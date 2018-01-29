@@ -1,0 +1,17 @@
+BOOK:Sexually Explicit
+BOOK:Counterfeit
+BOOK:Missing ISBN
+BOOK:Incorrect ISBN
+BOOK:Unsealed Access/Registration Code
+BOOK:Fill-in Book Already Filled.
+BOOK:Missing Pages/Obscured Text
+BOOK:Mold, Mildew, or Corrosion
+BOOK:Liquid Damage
+BOOK:Rendered Unusable Due to Other Damage
+BOOK:Missing Essential Components
+BOOK:Requires Repair or Service
+BOOK:Not Original Manufacturer or Copyright Holder Printing
+BOOK:Markings, Stickers, or Other Damage.
+DVD:TEST A
+DVD:TEST B
+DVD: THIS IS TEST C

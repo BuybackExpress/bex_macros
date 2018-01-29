@@ -1,3 +1,12 @@
+/*
+ #####################################################################
+
+    Version 1.7.1.5036
+
+ #####################################################################
+*/
+
+
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
@@ -5,14 +14,14 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
 
-version := "1.7.1b"
+
+version := "1.7.1.5036"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
 WTR_Location := ""
 WTR_Extent := ""
 WTR_String := ""
-
 
 ;------------------- CREATE SPLASH GUI -------------------
 Gui, SPLASH: Font, s16 w700, Verdana
@@ -45,11 +54,13 @@ Gui, MACRO: Add, Button, x25 y190 w200 gMUSIC, Music
 Gui, MACRO: Add, Button, x25 y250 w200 gVIDEOGAME, Video Game
 Gui, MACRO: Add, Button, x25 y310 w200 gSOFTWARE, Software
 Gui, MACRO: Add, Button, x25 y370 w200 gCARD, Access Card
+Gui, MACRO: Add, text, x20 y430 w210 h5 border, 
+Gui, MACRO: Add, Button, x25 y445 w200 gNOPAY, No Pay
 
 
 Macro_Window() {
 	width := A_ScreenWidth - 270
-	Gui, MACRO: Show, x%width% y20 w250 h440, BEX Macros
+	Gui, MACRO: Show, x%width% y20 w250 h510, BEX Macros
 }
 
 ;------------------- END MACRO BUTTONS GUI ---------------------
@@ -190,6 +201,7 @@ SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear"
 
 ;------------------- END SOFT GUI ---------------------
 
+
 ;------------------- CARD Phrase ---------------------
 
 CRD_Phrase() {
@@ -220,6 +232,11 @@ FixText(str)
 ;------------------- END FIX TEXT -----------------------
 
 ;END MAKING GUIS
+
+
+Macro_Window()
+
+#include BEX_Macros_NoPay.ahk
 
 Macro_Window()
 
@@ -321,6 +338,15 @@ CARD:
 	reload
 return
 ;------------------- END CARD BUTTON -------------------
+
+
+;------------------- BEGIN NO PAY BUTTON -------------------
+NOPAY:
+	Gui, MACRO: Hide	
+	NOPAY_Window()
+return
+;------------------- END NO PAY BUTTON -------------------
+
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:

@@ -7,6 +7,14 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
+## [1.7.1.5036] - 2018-01-03
+
+### ADDED
+* Added NoPay script.
+
+
+---
+
 ## [1.7.1b] - 2018-01-03
 
 ### FIXED
