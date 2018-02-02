@@ -1,15 +1,19 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿/*
+ #####################################################################
+
+    Version 1.7.2.1606 ncm
+
+ #####################################################################
+*/
+
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
-
-if (!A_IsAdmin) {
-	Run *RunAs "%A_ScriptFullPath%"
-	ExitApp
-}
-
+#include BEX_Macros_Globals.ahk
 
 /*
 ERROR CODE LEGEND
@@ -36,30 +40,11 @@ Gui, SPLASH: Font, s16
 Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
 Gui, SPLASH: Font, s10
 
-Exists(file) {
-	IfExist, % file
-		return True
-	return False
-}
 
 Install()
 {
-	BlockInput, On
+	global
 	
-	; Folder paths to destination and source
-	dpath := A_MyDocuments . "\BEX Macros\"
-	spath := "\\be-localserver\Shared\Source\"
-	startupPath := A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\"
-
-	; File paths for destination and source files
-	; 1 = ChangeLog.md
-	; 2 = BEX_Macros.exe
-	; 3 = BEX_Macros_Launcher.exe
-	; 4 = BEX_Macros_Updater.exe
-	dfiles := [A_MyDocuments . "\BEX Macros\ChangeLog.md", A_MyDocuments . "\BEX Macros\BEX_Macros.exe", A_MyDocuments . "\BEX Macros\BEX_Macros_Launcher.exe", A_MyDocuments . "\BEX Macros\BEX_Macros_Updater.exe"]
-	;dfiles := [A_MyDocuments . "\BEX\ChangeLog.md", A_MyDocuments . "\BEX\BEX_Macros.exe", A_MyDocuments . "\BEX\BEX_Macros_Launcher.exe", A_MyDocuments . "\BEX\BEX_Macros_Updater.exe"]
-	sfiles := ["\\be-localserver\Shared\Source\ChangeLog.md", "\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\BEX_Macros_Launcher.exe", "\\be-localserver\Shared\Source\BEX_Macros_Updater.exe"]
-
 	; Show the Splash Wx`indow
 	Gui, SPLASH: Show, w350 h200, Installing BEX Macros
 
@@ -85,7 +70,7 @@ Install()
 	; Check that source files are present.
 	for key, file in sfiles 
 	{
-		if(!Exists(file))
+		if(!FileExist(file))
 		{
 			MsgBox,,Error!,Error: 692%key%`rFile not found!, 30
 			return 0
@@ -95,7 +80,7 @@ Install()
 	GuiControl, SPLASH:,UpStat,40
 
 	; If the BEX folder DOES exist, update progress bar to 50% and delete it
-	if (Exists(dpath)) {
+	if (FileExist(dpath)) {
 		FileRemoveDir, % dpath, 1
 
 		if (ErrorLevel)
@@ -130,7 +115,7 @@ Install()
 
 	GuiControl, SPLASH:,UpStat,85
 
-	if (Exists(dfiles[3]))
+	if (FileExist(dfiles[3]))
 	{
 		FileCreateShortcut, % dfiles[3], %A_Desktop%.\BEX Macros.lnk
 
@@ -151,7 +136,7 @@ Install()
 
 		runfile := dfiles[3]
 
-		Run *RunAs %runfile%
+		Run % runfile
 		
 		; Wait until the new app is running before continuing
 		Process, Wait, BEX_Macros_Launcher.exe, 30

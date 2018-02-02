@@ -1,0 +1,50 @@
+*	BOOK:Sexually Explicit
+*	BOOK:Incorrect ISBN
+*	BOOK:Unsealed Access/Registration Code
+*	BOOK:Fill-in Book Already Filled.
+*	BOOK:Missing Pages/Obscured Text
+*	BOOK:Mold, Mildew, or Corrosion
+*	BOOK:Liquid Damage
+*	BOOK:Requires Repair or Service
+*	BOOK:Markings, Stickers, or Other Damage.
+*	AC:Unsealed Access/Registration Code
+*	AC:Mold, Mildew, or Corrosion
+*	AC:Liquid Damage
+*	AC:Incorrect ISBN+.
+???	DVD:Not for Resale Copy
+*	DVD:Missing Insert/Artwork/Etc.
+*	DVD:Missing Set Slipcase
+*	DVD:Damaged (Cracked/Scratched) Disc(s)
+*	DVD:Sexually Explicit
+*	CD:Missing Insert
+*	CD:Damaged (Cracked/Scratched) Disc(s)
+*	CD:Promo/Not for Resale Copy
+*	CD:Missing Set Slipcase
+*	SOFT:Missing Manual/Etc.
+*	SOFT:Explicit Material
+*	SOFT:Missing Part of Packaging
+*	SOFT:Damaged (Cracked/Scratched) Disc(s)
+*	VG:Damaged (Cracked/Scratched) Disc(s)
+*	VG:Missing Manual/Insert
+*	VG:Explicit Material
+*	VG:Missing Part of Packaging
+
+
+BOOK:Not Original Manufacturer or Copyright Holder Printing
+BOOK:Rendered Unusable Due to Other Damage
+BOOK:Missing Essential Components
+BOOK:Counterfeit
+BOOK:Missing ISBN
+DVD:Incorrect UPC
+DVD:Missing UPC
+DVD:Missing Disc(s)
+CD:Incorrect UPC
+CD:Missing UPC
+CD:Missing Disc(s)
+SOFT:Unsealed Registration Code
+SOFT:Incorrect UPC
+SOFT:Missing UPC
+SOFT:Missing Disc(s)
+VG:Incorrect UPC
+VG:Missing UPC
+VG:Missing Disc(s)

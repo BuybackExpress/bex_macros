@@ -1,7 +1,7 @@
 /*
  #####################################################################
 
-    Version 1.7.1.5036
+    Version 1.7.2.1606 ncm
 
  #####################################################################
 */
@@ -13,9 +13,11 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
+;#include BEX_Macros_NoPay.ahk
+#include BEX_Macros_Guis.ahk
+#include BEX_Macros_Functions.ahk
 
-
-version := "1.7.1.5036"
+version := "1.7.2"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""
@@ -23,222 +25,17 @@ WTR_Location := ""
 WTR_Extent := ""
 WTR_String := ""
 
-;------------------- CREATE SPLASH GUI -------------------
-Gui, SPLASH: Font, s16 w700, Verdana
-Gui, SPLASH: +AlwaysOnTop
-Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
-Gui, SPLASH: Font, s16 w600, Verdana
-Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, %version%
-Gui, SPLASH: Font, s12 w700, Verdana
-Gui, SPLASH: Add, Text, x10 y100 w335 Center, Developed by:
-Gui, SPLASH: Font, s12 w400, Verdana
-Gui, SPLASH: Add, Text, x10 y130 w335 Center, Nathan Mangoff
-Gui, SPLASH: Add, Text, x10 y155 w335 Center, Aaron Spurlock
-Gui, SPLASH: Font, s10, Verdana
-
-Splash() {
-	Gui, SPLASH: Show, w350 h200, About BEX Macros
-	Sleep, 5000
-	WinClose, About BEX Macros
-}
-;------------------- END SPLASH GUI --------------------------
-
-;------------------- CREATE MACRO BUTTONS GUI ------------------
-Gui, MACRO: Font, s18, Verdana
-Gui, MACRO: +AlwaysOnTop
-Gui, MACRO: -MinimizeBox
-Gui, MACRO: Add, Text, y20 w250, Buyback Express
-Gui, MACRO: Add, Button, x25 y70 w200 gDVD, Movie
-Gui, MACRO: Add, Button, x25 y130 w200 gBOOK, Book
-Gui, MACRO: Add, Button, x25 y190 w200 gMUSIC, Music
-Gui, MACRO: Add, Button, x25 y250 w200 gVIDEOGAME, Video Game
-Gui, MACRO: Add, Button, x25 y310 w200 gSOFTWARE, Software
-Gui, MACRO: Add, Button, x25 y370 w200 gCARD, Access Card
-Gui, MACRO: Add, text, x20 y430 w210 h5 border, 
-Gui, MACRO: Add, Button, x25 y445 w200 gNOPAY, No Pay
-
-
-Macro_Window() {
-	width := A_ScreenWidth - 270
-	Gui, MACRO: Show, x%width% y20 w250 h510, BEX Macros
-}
-
-;------------------- END MACRO BUTTONS GUI ---------------------
-
-;------------------- Create DVD GUI -------------------
-Gui, DVD: Font, s18
-Gui, DVD: Add, Text, x30 y10 w260 Center, -- Format --
-Gui, DVD: Add, ddl, vFormat x30 y50 w260 Center, DVD|Blu-ray|Combo|HD-DVD|PSP Video
-Gui, DVD: Add, Text, x30 y100 w260 Center, -- Condition --
-Gui, DVD: Add, ddl, vDVD_Condition x30 y140 w260 Center AltSubmit, New|Like New|Very Good|Acceptable
-Gui, DVD: Add, Checkbox, vDVD_More_Notes x340 y30, Additional Notes?
-Gui, DVD: Add, Checkbox, vDVD_ReplaceCase x340 y75, Replaced Case?
-Gui, DVD: Add, Checkbox, vLibrary x340 y120, Ex-Rental?
-Gui, DVD: Add, Checkbox, vDigitalCode x340 y165, Digital Code?
-Gui, DVD: Add, Button, gDVD_OK x320 y230 w100 Default, OK
-Gui, DVD: Add, Button, x460 y230 w100 gCancel, Cancel
-
-DVD_Window() {
-	Gui, DVD: Show, w600 h300, DVD Macros
-}
-
+;------------------------- Global Arrays -------------------
 DVDArray := ["in NEW Condition!","in LIKE NEW condition with no signs of wear.","in Very Good Condition with only light, reasonable wear. Perfect-Play Guarantee!","in Acceptable Condition with noticeable wear. Perfect-Play Guarantee!", "have considerable wear and library stickers/marks, but comes with our Perfect-Play Guarantee."]
-
-;------------------- END DVD GUI -------------------
-
-;------------------- Create BOOK GUI -------------------
-Gui, BOOK: Font, s18
-Gui, BOOK: Add, Text, x30 y10 w260 center, -- Condition --
-Gui, BOOK: Add, ddl, vBOOK_Condition x30 y50 w290 Center AltSubmit, New|Like New|Very Good|Good|Acceptable
-Gui, BOOK: Add, Text, x30 y100 w260 Center, -- Edition --
-Gui, BOOK: Add, ddl, vBOOK_Edition x30 y140 w290 Center AltSubmit, Standard Edition||Loose-Leaf|Instructor's Edition|Advanced Reader|International
-Gui, BOOK: Add, Text, x30 y200 w200, Access Card?
-Gui, BOOK: Add, DDL, vBOOK_AccessCard x200 y195 w120 AltSubmit, Yes|No|N/A||
-Gui, BOOK: Add, Text, x30 y250 w200, Disc Included?
-Gui, BOOK: Add, DDL, vbook_disc x200 y245 w120 AltSubmit, Yes (CD)|Yes (DVD)|No|N/A||
-Gui, BOOK: Add, Checkbox, vMarkings x350 y30, Markings?
-Gui, BOOK: Add, Checkbox, vBOOK_Library x350 y75, Ex-Rental?
-Gui, BOOK: Add, Checkbox, vBOOK_More_Notes x350 y120, Additional Notes? 
-Gui, BOOK: Add, Checkbox, vBOOK_Water x350 y165, Water Damage?
-Gui, BOOK: Add, Button, gBook_OK x350 y230 w100 Default, OK
-Gui, BOOK: Add, Button, x470 y230 w100 gCancel, Cancel
-
-
-BOOK_Window() {
-	Gui, BOOK: Show, w600 h300, Book Macros
-}
-
 BOOKArray := ["BRAND NEW BOOK!!","Book in Like New Condition!","Very Good condition. Light, reasonable wear.","Good condition with reasonable wear.","Fairly worn, but still very usable.","Good Condition. Reasonable wear. Still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)","Noticeable wear, but still very usable. Ex-library with usual distinguishments (stamps, stickers, etc.)"]
 EdArray := [""," Loose-Leaf Edition."," Teacher Edition. Not for Sale."," Advanced Reader Copy. Not for Sale."," International Edition."]
-
-;------------------- END BOOK GUI -------------------
-
-;------------------- Create WATER DAMAGE GUI ---------------------
-
-Gui, WATER: Font, s18
-Gui, WATER: Add, Text, x30 y20 w300 center, -- Degree of Damage --
-Gui, WATER: Add, DDL, vWTR_Degree x30 y50 w300 center, Minor||Moderate|Significant
-Gui, WATER: Add, Text, x30 y100 w300 center, -- Location of Damage --
-Gui, WATER: Add, ListBox, vWTR_Location x30 y140 w300 h200 center 8, Top Corner||Bottom Corner|Inside Edge|Outside Edge|Top Page Edge|Bottom Page Edge
-Gui, WATER: Add, Text, x30 y340 w300 center, -- Extent of Damage --
-Gui, WATER: Add, Edit, vWTR_Extent gWTR_ChkDta x30 y380 w300 center
-Gui, WATER: Add, Button, gWTR_OK x100 y450 w100 Default +Disabled, OK
-Gui, WATER: Add, Button, gCancel x230 y450 w100, Cancel
-
-Water_Window(){
-	Global
-	Gui, WATER: Show, w360 h510, Water Damage
-	WinWaitClose, Water Damage
-}
-
-GetWaterDamage() {
-	
-	global
-	Water_Window()
-	StringLower, WTR_Extent, WTR_Extent
-	WTR_Location := RegExReplace(WTR_Location, "\|",", ")
-	StringLower, WTR_Location, WTR_Location
-	return " " WTR_Degree . " damp-staining along " . WTR_Location . " to " . WTR_Extent . " of book, but visual defect only: no stickiness, scent, etc. and *Does Not Affect Text or Use of Book.*"
-}
-
-;------------------- END WATER DAMAGE GUI ------------------------
-
-;------------------- Create CD GUI ---------------------
-Gui, CD: Font, s18
-Gui, CD: Add, Text, x30 y10 w260 Center, -- Condition --
-Gui, CD: Add, ddl, vCD_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, CD: Add, Checkbox, vCD_More_Notes x340 y110, Additional Notes?
-Gui, CD: Add, Checkbox, vCD_ReplaceCase x340 y150, Replaced Case?
-Gui, CD: Add, Checkbox, vCD_Library x30 y110, Ex-Rental?
-Gui, CD: Add, Checkbox, vCD_Insert x30 y150, Missing Insert?
-Gui, CD: Add, Checkbox, vPromo x30 y190, Promotional Copy?
-Gui, CD: Add, Button, gCD_OK x320 y230 w100 Default, OK
-Gui, CD: Add, Button, x460 y230 w100 gCancel, Cancel
-
-CD_Window() {
-	Gui, CD: Show, w600 h300, CD Macros
-}
-
 CDArray := ["BRAND NEW IN SHRINKWRAP!","Very Good or better condition. CD in Very Good shape with only light, reasonable wear. Perfect-play Guarantee!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly!","Art and case in reasonable or better condition. CD shows some wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD.","Art and case in reasonable or better condition. CD shows noticeable wear, but is Guaranteed to Play Perfectly! Library stickers/marks on art and CD."]
-
-;------------------- END CD GUI ---------------------
-
-;------------------- Create GAME GUI ---------------------
-Gui, VG: Font, s18
-Gui, VG: Add, Text, x30 y10 w260 Center, -- Condition --
-Gui, VG: Add, ddl, vVG_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, VG: Add, Checkbox, vVG_More_Notes x340 y110, Additional Notes?
-Gui, VG: Add, Checkbox, vVG_ReplaceCase x30 y110, Replaced Case?
-Gui, VG: Add, Checkbox, vVG_Paper x30 y150, Includes Paperwork?
-Gui, VG: Add, Button, gVG_OK x320 y230 w100 Default, OK
-Gui, VG: Add, Button, x460 y230 w100 gCancel, Cancel
-
-VG_Window() {
-	Gui, VG: Show, w600 h300, Video Game Macros
-}
-
 VGArray := ["in NEW Condition!","in Very Good Condition. Light, reasonable wear.","in Good Condition with reasonable wear.","in Acceptable Condition with noticeable wear."]
-
-;------------------- END GAME GUI ---------------------
-
-;------------------- Create SOFT GUI ---------------------
-Gui, SFT: Font, s18
-Gui, SFT: Add, Text, x30 y10 w260 Center, -- Condition --
-Gui, SFT: Add, ddl, vSFT_Condition x30 y50 w260 Center AltSubmit, New|Very Good|Good|Acceptable
-Gui, SFT: Add, Text, x30 y100 w260 Center, -- Container --
-Gui, SFT: Add, DDL, vSFT_Container x30 y140 w260 Center, Box|Case
-Gui, SFT: Add, Checkbox, vSFT_More_Notes x340 y50, Additional Notes?
-Gui, SFT: Add, Checkbox, vSFT_ReplaceCase x340 y95, Replaced Case?
-Gui, SFT: Add, Checkbox, vSFT_Paper x340 y140, Includes Paperwork?
-Gui, SFT: Add, Button, gSFT_OK x320 y230 w100 Default, OK
-Gui, SFT: Add, Button, x460 y230 w100 gCancel, Cancel
-
-SFT_Window() {
-	Gui, SFT: Show, w600 h300, Software Macros
-}
-
 SFTArray :=["in NEW Condition!","in Very Good Condition. Light, reasonable wear","in Good Condition with some reasonable wear, but come with","have noticeable wear, but come with"]
 
-;------------------- END SOFT GUI ---------------------
-
-
-;------------------- CARD Phrase ---------------------
-
-CRD_Phrase() {
-	SendRaw, New, Unused Access Code! Code Guaranteed to Work!
-	;reload
-}
-
-;------------------- END CARD Phrase ---------------------
-
-;------------------- FIX TEXT FOR ADDITIONAL NOTES ---------------
-FixText(str)
-{
-	;Capitalize the first character
-	rstr := substr(str, 1, 1)
-	str := substr(str, 2, 150)
-	StringUpper, rstr, rstr
-	rstr = %rstr%%str%
-
-	len := StrLen(rstr)
-
-	if (substr(rstr, len, 1) <> ".")
-	{
-		rstr = %rstr%.
-	}
-
-	return rstr
-}
-;------------------- END FIX TEXT -----------------------
-
-;END MAKING GUIS
-
-
 Macro_Window()
 
-#include BEX_Macros_NoPay.ahk
-
-Macro_Window()
+; BEGIN HOTKEYS
 
 ;------------------- BEGIN DVD HOTKEY -------------------
 ::#dvd::
@@ -288,6 +85,8 @@ return
 
 !^Esc::
 ExitApp
+
+; BEGIN MINOR SUBROUTINES
 
 ;------------------- CANCEL BUTTON CLOSES WINDOWS -------------------
 Cancel:
@@ -339,14 +138,15 @@ CARD:
 return
 ;------------------- END CARD BUTTON -------------------
 
-
 ;------------------- BEGIN NO PAY BUTTON -------------------
-NOPAY:
-	Gui, MACRO: Hide	
-	NOPAY_Window()
-return
+;NOPAY:
+;	Gui, MACRO: Hide	
+	;NOPAY_Window()
+;return
 ;------------------- END NO PAY BUTTON -------------------
 
+
+; BEGIN MAJOR SUBROUTINES
 
 ;------------------- BEGIN DVD SUBMIT BUTTON FUNCTIONS -------------------
 DVD_OK:

@@ -7,10 +7,42 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
-## [1.7.1.5036] - 2018-01-03
+## [1.7.2.1606] - 2018-02-01
+
+### CHANGED
+* Moved Functions, Globals, and Gui definitions to include files.
+
+
+---
+
+## [1.7.2.1321] - 2018-01-31
 
 ### ADDED
-* Added NoPay script.
+* Added minimize option back into the main macro window
+
+
+---
+
+## [1.7.1.0853] - 2018-01-31
+
+### REMOVED
+* Removed run as admin from all scripts because it wasn't working.
+
+
+---
+
+## [1.7.1.1441] - 2018-01-30
+
+### ADDED
+* Changed file path variables to global variables so that they will be correct when running as admin.
+
+
+---
+
+## [1.7.1.5036] - 2018-01-29
+
+### ADDED
+* Added NoPay script. No current implementation.
 
 
 ---
