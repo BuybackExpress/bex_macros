@@ -1,14 +1,19 @@
+/*
+ #####################################################################
+
+    Version 1.7.2.1606 ncm
+
+ #####################################################################
+*/
+
+
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
-
-if (!A_IsAdmin) {
-	Run *RunAs "%A_ScriptFullPath%"
-	ExitApp
-}
+#include BEX_Macros_globals.ahk
 
 /*
 ERROR CODE LEGEND
@@ -19,13 +24,6 @@ ERROR CODE LEGEND
 5894 = Couldn't copy CHANGELOG
 7634 = Source CHANGELOG not found
 */
-
-; Define File Paths
-spath := "\\be-localserver\Shared\Source\"
-dpath := A_MyDocuments . "\BEX Macros\"
-dfile := [A_MyDocuments . "\BEX Macros\BEX_Macros.exe", A_MyDocuments . "\BEX Macros\CHANGELOG.md"]
-sfile := ["\\be-localserver\Shared\Source\BEX_Macros.exe", "\\be-localserver\Shared\Source\CHANGELOG.md"]
-clog := % dpath . "CHANGELOG.md"
 
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Margin, 5, 5
@@ -40,16 +38,10 @@ Gui, SPLASH: Font, s10
 Gui, SPLASH: Add, Text, cGray x10 y175 w335 Center, Press Alt+ESCAPE to Exit
 
 
-Exists(file) {
-	IfExist, % file
-		return True
-	return False
-}
-
 Updater() {
 global
 
-BlockInput, On
+;BlockInput, On
 
 ; Show the Splash Wx`indow
 Gui, SPLASH: Show, w350 h200, Updating BEX Macros
@@ -69,8 +61,8 @@ Process, WaitClose, BEX_Macros.exe
 ; Update Progress Bar to 30%
 GuiControl, SPLASH:,UpStat,30
 
-; Check to see if the source file (update) exists.
-if (Exists(sfile[1])) {
+; Check to see if the source file changelog exists.
+if (FileExist(sfiles[1])) {
 	; If source exists, update progress bar to 45%
 	GuiControl, SPLASH:,UpStat,50
 } else {
@@ -78,8 +70,8 @@ if (Exists(sfile[1])) {
 	return
 }
 
-; Check to see if the source file (update) exists.
-if (Exists(sfile[2])) {
+; Check to see if the source file app exists.
+if (FileExist(sfiles[2])) {
 	; If source exists, update progress bar to 45%
 	GuiControl, SPLASH:,UpStat,55
 } else {
@@ -88,8 +80,8 @@ if (Exists(sfile[2])) {
 }
 
 ; Check to see if the local copy of the app exists. If so, delete it.
-if (Exists(dfile[1])) {
-	FileDelete, % dfile[1]
+if (FileExist(dfiles[2])) {
+	FileDelete, % dfiles[2]
 
 	; Check to see if the delete command was successful.
 	if (ErrorLevel) {
@@ -103,8 +95,8 @@ if (Exists(dfile[1])) {
 }
 
 ; Check to see if the local copy of the changelog exists. If so, delete it.
-if (Exists(dfile[2])) {
-	FileDelete, % dfile[2]
+if (FileExist(dfiles[1])) {
+	FileDelete, % dfiles[1]
 
 	; Check to see if the delete command was successful.
 	if (ErrorLevel) {
@@ -118,7 +110,7 @@ if (Exists(dfile[2])) {
 }
 
 ; If the BEX folder DOES exist, update progress bar to 50% and continue
-if (Exists(dpath)) {
+if (FileExist(dpath)) {
 	GuiControl, SPLASH:,UpStat,60
 } else {
 	; If the BEX folder doesn't exist on local computer, create it.
@@ -131,8 +123,8 @@ if (Exists(dpath)) {
 }
 
 ; If we made it this far, the source exists, and the local copy doesn't... copy the CHANGELOG
-if (Exists(sfile[2]) and !Exists(dfile[2])) {
-	FileCopy, % sfile[2], % dfile[2], 1
+if (FileExist(sfiles[1]) and !FileExist(dfiles[1])) {
+	FileCopy, % sfiles[1], % dfiles[1], 1
 
 	if (ErrorLevel) {
 		MsgBox,, Error!, Code: 5894
@@ -145,15 +137,15 @@ if (Exists(sfile[2]) and !Exists(dfile[2])) {
 }
 
 ; Now copy the app itself
-if (Exists(sfile[1]) and !Exists(dfile[1])) {
-	FileCopy, % sfile[1], % dfile[1], 1
+if (FileExist(sfiles[2]) and !FileExist(dfiles[2])) {
+	FileCopy, % sfiles[2], % dfiles[2], 1
 
 	if (ErrorLevel) {
 		MsgBox,, Error!, Code: 5098
 		return
 	} else {
 		GuiControl, SPLASH:,UpStat,65
-		Run % dfile[1]
+		Run % dfile[2]
 		Sleep, 1500
 		GuiControl, SPLASH:,UpStat,75
 	}
@@ -170,12 +162,10 @@ GuiControl, SPLASH:,UpStat,100
 Sleep, 2000
 
 Gui, SPLASH: Hide
-BlockInput, Off
 
 ; Open up About Window and then exit
 Send, !2
 
-;ExitApp
 return
 
 }
@@ -187,13 +177,11 @@ CheckVer()
 	FileReadLine, myVer, % clog, 10
 	myVer := SubStr(myVer, 5, 5)
 
-	FileReadLine, mainVer, % sfile[2], 10
+	FileReadLine, mainVer, % sfiles[1], 10
 	mainVer := SubStr(mainVer, 5, 5)
 
-	if (mainVer <> myVer) {
+	if (mainVer <> myVer)
 		Updater()
-		return
-	}
 	
 	return
 }
@@ -203,9 +191,9 @@ UpdateAll(){
 	ExitApp
 }
 
-if(Exists(dfile[1])) 
+if(FileExist(dfiles[2])) 
 {
-	Run % dfile[1]
+	Run % dfiles[2]
 	Sleep, 1500
 }
 
@@ -214,7 +202,6 @@ Loop
 	CheckVer()
 	Sleep, 60000
 }
-
 
 
 !Escape::

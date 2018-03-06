@@ -1,15 +1,19 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿/*
+ #####################################################################
+
+    Version 1.7.2.1606 ncm
+
+ #####################################################################
+*/
+
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
-
-if (!A_IsAdmin) {
-	Run *RunAs "%A_ScriptFullPath%"
-	ExitApp
-}
-
+#include BEX_Macros_Globals.ahk
 
 /*
 ERROR CODE LEGEND
@@ -29,20 +33,9 @@ Gui, SPLASH: Font, s16
 Gui, SPLASH: Add, Progress, vUpStat backgroundCCCCCC cGreen Center x10 y120 w330 h20, 0
 Gui, SPLASH: Font, s10
 
-Exists(file) {
-	IfExist, % file
-		return True
-	return False
-}
 
 Updater() {
-BlockInput, On
-; Define File Paths
-
-spath := "\\be-localserver\Shared\Source\"
-dpath := A_MyDocuments . "\BEX Macros\"
-dfile := % dpath . "BEX_Macros_Launcher.exe"
-sfile := % spath . "BEX_Macros_Launcher.exe"
+global
 
 ; Show the Splash Wx`indow
 Gui, SPLASH: Show, w350 h200, Updating BEX Macros Launcher
@@ -63,7 +56,7 @@ Process, WaitClose, BEX_Macros.exe
 GuiControl, SPLASH:,UpStat,30
 
 ; Check to see if the source file (update) exists.
-if (Exists(sfile)) {
+if (FileExist(sfiles[3])) {
 	; If source exists, update progress bar to 45%
 	GuiControl, SPLASH:,UpStat,50
 } else {
@@ -72,8 +65,9 @@ if (Exists(sfile)) {
 }
 
 ; Check to see if the local copy of the app exists. If so, delete it.
-if (Exists(dfile)) {
-	FileDelete, % dfile
+if FileExist(dfiles[3]) {
+
+	FileDelete, % dfiles[3]
 
 	; Check to see if the delete command was successful.
 	if (ErrorLevel) {
@@ -87,7 +81,7 @@ if (Exists(dfile)) {
 }
 
 ; If the BEX folder DOES exist, update progress bar to 50% and continue
-if (Exists(dpath)) {
+if (FileExist(dpath)) {
 	GuiControl, SPLASH:,UpStat,60
 } else {
 	; If the BEX folder doesn't exist on local computer, create it.
@@ -100,15 +94,15 @@ if (Exists(dpath)) {
 }
 
 ; If we made it this far, the source exists, and the local copy doesn't, so copy the app
-if (Exists(sfile) and !Exists(dfile)) {
-	FileCopy, % sfile, % dfile, 1
+if (FileExist(sfiles[3])) and !(FileExist(dfiles[3])) {
+	FileCopy, % sfiles[3], % dfiles[3], 1
 
 	if (ErrorLevel) {
 		MsgBox,, Error!, Code: 7963
 		return 0
 	} else {
 		GuiControl, SPLASH:,UpStat,65
-		Run % dfile
+		Run % dfiles[3]
 		Sleep, 1500
 		GuiControl, SPLASH:,UpStat,75
 	}
@@ -125,11 +119,9 @@ GuiControl, SPLASH:,UpStat,100
 Sleep, 2000
 
 Gui, SPLASH: Hide
-BlockInput, Off
 
 return 1
 }
-
 
 Updater()
 ExitApp
