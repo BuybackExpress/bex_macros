@@ -1,7 +1,7 @@
 ﻿/*
  #####################################################################
 
-    Version 1.7.2.1606 ncm
+    Version 1.7.3.1150 ncm
 
  #####################################################################
 */
@@ -16,7 +16,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 ; All Globals
-version := "1.7.2"
+version := "1.7.3"
 
 spath := "\\10.23.25.5\Repository$\Apps\"
 dpath = %A_MyDocuments%\BEX Macros\
