@@ -13,7 +13,16 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
+#include BEX_Macros_globals.ahk
 
+
+/*
+ERROR CODE LEGEND
+3108 = Source CHANGELOG not found.
+5098 = Source Main App not found.
+9136 = Source Launcher not found.
+5731 = Source Updater not found.
+*/
 
 ;------------------- DISPLAY SPLASH WINDOW ------------------
 Splash() {
@@ -112,3 +121,47 @@ FixText(str)
 	return rstr
 }
 
+CheckSourceFiles(showError) {
+	global
+
+	; Check to see if the source file changelog exists.
+	if not (FileExist(sfiles[1])) {
+		if (showError) {
+			msgbox,, Error!, Error Code: 3108`nPlease alert management.
+			showError = False
+		}
+
+		return false
+	}
+
+	if not (FileExist(sfiles[2])) {
+		if (showError) {
+			msgbox,, Error!, Error Code: 5098`nPlease alert management.
+			showError = False
+		}
+
+		return false		
+	}
+
+	; Check to see if the source file launcher exists.
+	if not (FileExist(sfiles[3])) {
+		if (showError) {
+			msgbox,, Error!, Error Code: 9136`nPlease alert management.
+			showError = False
+		}
+
+		return false
+	}
+
+	; Check to see if the source file updater exists.
+	if not (FileExist(sfiles[3])) {
+		if (showError) {
+			msgbox,, Error!, Error Code: 5731`nPlease alert management.
+			showError = False
+		}
+
+		return false
+	}
+
+	return true
+}

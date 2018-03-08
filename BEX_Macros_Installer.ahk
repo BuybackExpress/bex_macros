@@ -13,14 +13,16 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
-#include BEX_Macros_Globals.ahk
+#include BEX_Macros_globals.ahk
+#include BEX_Macros_Functions.ahk
+
 
 /*
 ERROR CODE LEGEND
 6921 = Source Changelog not found.
 6922 = Source BEX_Macros not found.
 6923 = Source BEX_Macros_Launcher not found.
-6924 = Source BEX_Macros_Updater not found.
+6924 = Source BEX_Macros_UpdateAll not found.
 7281 = Couldn't copy Changelog.
 7282 = Couldn't copy BEX_Macros.
 7283 = Couldn't copy BEX_Macros_Launcher.
@@ -31,7 +33,7 @@ ERROR CODE LEGEND
 
 Gui, SPLASH: Font, s14
 Gui, SPLASH: Margin, 5, 5
-Gui, SPLASH: +Disabled +AlwaysOnTop
+Gui, SPLASH: +Disabled
 Gui, SPLASH: Add, Text, x10 y20 w335 Center, Buyback Express Macros
 Gui, SPLASH: Font, s12
 Gui, SPLASH: Add, Text, cRed w900 x10 y45 w335 Center, Installing BEX Macros
@@ -73,7 +75,7 @@ Install()
 		if(!FileExist(file))
 		{
 			MsgBox,,Error!,Error: 692%key%`rFile not found!, 30
-			return 0
+			return
 		}
 	}
 
@@ -86,7 +88,7 @@ Install()
 		if (ErrorLevel)
 		{
 			MsgBox,,Error!, Error: 3925`rCould not remove directory!, 30
-			return 0
+			return
 		}
 
 		GuiControl, SPLASH:,UpStat,50
@@ -96,8 +98,8 @@ Install()
 	FileCreateDir, % dpath
 
 	if (ErrorLevel) {
-		MsgBox,, Error!, Unknown Error!, 30
-		return 0
+		MsgBox,, Error!, Unknown Error!`nError:%ErrorLevel%, 30
+		return
 	}
 
 	for key, file in sfiles
@@ -107,7 +109,7 @@ Install()
 		if (ErrorLevel)
 		{
 			MsgBox,,Error!, Error: 728%key%`rFile copy failed!, 30
-			return 0
+			return
 		}
 
 		GuiControl, SPLASH:,UpStat,50+(5*key)
@@ -122,7 +124,7 @@ Install()
 		if (ErrorLevel)
 		{
 			MsgBox,,Error!, Error: 1081`rUnable to create shortcut!, 30
-			return 0
+			return
 		}
 
 		FileCreateShortcut, % dfiles[3], %startupPath%BEX Macros.lnk
@@ -130,7 +132,7 @@ Install()
 		if (ErrorLevel)
 		{
 			MsgBox,,Error!, Error: 1081`rUnable to create shortcut!, 30
-			return 0
+			return
 		}
 
 
@@ -151,7 +153,7 @@ Install()
 		BlockInput, Off
 	}
 
-	return 0
+	return
 }
 
 Install()

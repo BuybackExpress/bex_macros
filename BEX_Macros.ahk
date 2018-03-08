@@ -14,10 +14,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
 ;#include BEX_Macros_NoPay.ahk
+#include BEX_Macros_Globals.ahk
 #include BEX_Macros_Guis.ahk
 #include BEX_Macros_Functions.ahk
-
-version := "1.7.2"
 
 ;------------------------- Global Variables -------------------
 WTR_Degree := ""

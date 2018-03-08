@@ -7,6 +7,15 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
+## [1.7.3.1150] - 2018-03-08
+
+### CHANGED
+* Modified installers and updater to using new locations.
+* Installers and updaters also do not fail when a file is not found.
+
+
+---
+
 ## [1.7.2.1606] - 2018-02-01
 
 ### CHANGED

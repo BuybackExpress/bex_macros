@@ -13,6 +13,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 #NoTrayIcon
+#include BEX_Macros_Globals.ahk
+
 
 ;------------------- CREATE SPLASH GUI -------------------
 Gui, SPLASH: Font, s16 w700, Verdana
