@@ -1,7 +1,7 @@
 /*
  #####################################################################
 
-    Version 1.7.3.1150 ncm
+    Version 1.7.5.1135 ncm
 
  #####################################################################
 */
@@ -181,9 +181,9 @@ else
 ;CHECK IF DIGITAL CODE BOX IS CHECKED OR NOT
 if (DigitalCode)
 {
-	if(dvd_condition = 1)
+	if(dvd_condition = < 3)
 	{
-		MsgBox,,Nope, There is no need to select the Digital Code box if the item is new.
+		MsgBox,,Nope, A movie in New or Like New condition must include a valid digital code.
 		DVD_Window()
 		return
 	}
@@ -523,7 +523,7 @@ VG_cond := VGArray[VG_condition]
 
 ;OUTPUT THE MACRO TEXT
 
-SendRaw, Disc and Case %VG_cond% Perfect-Play Guarantee!%VG_ReplaceCase%%Paper%%VG_notes%
+SendRaw, Disc and Case %VG_cond% Perfect-Play Guarantee!%VG_ReplaceCase%%VG_Paper%%VG_notes%
 
 Sleep, 2000
 

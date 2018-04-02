@@ -7,6 +7,22 @@ All notable changes to this porject will be documented in this file. The format 
 
 ---
 
+## [1.7.5.1135] - 2018-04-02
+
+### CHANGED
+* Corrected DVD check to ensure only Very Good or Acceptable lack a valid code.
+
+
+---
+
+## [1.7.4.1228] - 2018-03-26
+
+### CHANGED
+* Corrected an issue with the Video Game macro that was not outputting the paperwork included phrase
+
+
+---
+
 ## [1.7.3.1150] - 2018-03-08
 
 ### CHANGED

@@ -1,11 +1,10 @@
 ﻿/*
  #####################################################################
 
-    Version 1.7.3.1150 ncm
+    Version 1.7.5.1135 ncm
 
  #####################################################################
 */
-
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
